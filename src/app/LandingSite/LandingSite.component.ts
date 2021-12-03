@@ -54,7 +54,6 @@ export class LandingSiteComponent implements OnInit {
 
     // }
 
-    confirmationMessage = ""
 
     // loading: boolean = false
 
@@ -247,7 +246,7 @@ export class LandingSiteComponent implements OnInit {
                 }
             }).subscribe(result => {
                 // alert("Disable Success")
-                this.confirmationMessage = "Disable Success";
+                this.data.confirmationMessage = "Disable Success";
                 this.data.openAlert()
 
 
@@ -263,7 +262,7 @@ export class LandingSiteComponent implements OnInit {
                 }
             }).subscribe(result => {
                 // alert("Enable Success")
-                this.confirmationMessage = "Enable Success";
+                this.data.confirmationMessage = "Enable Success";
                 this.data.openAlert()
 
 
@@ -283,7 +282,7 @@ export class LandingSiteComponent implements OnInit {
                 }
             }).subscribe(result => {
                 // alert("Disable Success")
-                this.confirmationMessage = "Hide Success";
+                this.data.confirmationMessage = "Hide Success";
                 this.data.openAlert()
 
 
@@ -299,7 +298,7 @@ export class LandingSiteComponent implements OnInit {
                 }
             }).subscribe(result => {
                 // alert("Enable Success")
-                this.confirmationMessage = "Unhide Success";
+                this.data.confirmationMessage = "Unhide Success";
                 this.data.openAlert()
 
 
