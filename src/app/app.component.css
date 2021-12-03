@@ -1,0 +1,18 @@
+#testingfix {
+    position: fixed;
+    right: -77px;
+    top: 270px;
+    transition: all 0.2s ease-in 0s;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+body {
+    line-height: 1.6;
+}
+
+
+/* body {
+    background-image: url("C:\Users\NSUWANW\Desktop\IT_Fair_Ver2\ITFair2_package\ITFair2\src\assets\images\Background_Buttom.svg");
+    background-color: #ffffff;
+   } */

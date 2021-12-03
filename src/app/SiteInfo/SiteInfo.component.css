@@ -1,0 +1,53 @@
+.em-l-grid__item {
+    width: 21%;
+    border-radius: 10px;
+    aspect-ratio: 1;
+    padding: 5%;
+    margin: 0.5%;
+    box-shadow: 0px 5px 10px rgb(201, 201, 201);
+    color: rgb(187, 131, 120);
+    background-color: white;
+}
+
+.howto_img {
+    margin: auto;
+    /* padding-top: 5%; */
+    /* margin-left: auto; 
+  margin-right: auto; */
+    display: block;
+    width: 80%;
+    height: 80%;
+}
+
+.howto_title {
+    padding-top: 20%;
+    text-align: center;
+    /* display: block; */
+}
+
+.em-l-grid__item:hover {
+    /* background-color: rgb(201, 201, 201);
+    color: rgb(255, 235, 231); */
+    cursor: pointer;
+}
+
+.em-l-grid__item__active {
+    width: 24%;
+    border-radius: 10px;
+    aspect-ratio: 1;
+    box-shadow: 0px 5px 10px rgb(201, 201, 201);
+    background-color: rgb(187, 131, 120);
+    color: rgb(255, 235, 231);
+    padding: 5%;
+    margin: 0.5%;
+}
+
+.get-to-know {
+    /* max-width: 60%; */
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.instructionBlock {
+    max-width: 60%;
+}

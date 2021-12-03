@@ -1,0 +1,30 @@
+<app-header></app-header>
+<div class="em-c-modal em-js-modal-only em-is-closed" id="Alert">
+    <div class="em-c-modal__window em-js-modal-window ">
+        <div class="em-c-modal__header ">
+            <h3 class="em-c-modal__title ">Notification</h3>
+            <button class="em-c-btn em-c-btn--bare em-c-modal__close-btn em-js-modal-close-trigger " (click)="data.closeAlert() ">
+                <span class="em-c-btn__text ">Close</span>
+            </button>
+            <!-- end em-c-btn -->
+        </div>
+        <!-- end em-c-modal__header -->
+        <div [innerHTML]="data.confirmationMessage" class="em-c-modal__body em-c-text-passage em-c-text-passage--small ">
+            Message
+        </div>
+        <!-- end em-c-modal__body -->
+        <div id="confirmationFooter_Default " class="em-c-modal__footer em-c-text-passage em-c-text-passage--small ">
+            <button class="em-c-btn em-c-btn_card " (click)="data.closeAlert() ">
+                <span class="em-c-btn__text ">OK</span>
+            </button>
+        </div>
+        <!-- end em-c-modal__footer -->
+    </div>
+    <!-- end em-c-modal__window -->
+</div>
+<!-- end em-c-modal -->
+<div class="header_filler">_</div>
+
+<body [ngStyle]="{'background-image': getUrl()}">
+    <router-outlet></router-outlet>
+</body>

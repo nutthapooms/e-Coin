@@ -1,0 +1,196 @@
+<div class="slideshow-container ">
+
+
+    <div class="Containers fade">
+        <img src={{firstBanner}} style=" width: 100%;height: 78vh;" />
+        <!-- <img src="https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/Picture%20Hub/Banner1.png" style=" width: 100%;height: 78vh;" /> -->
+    </div>
+    <div class="Containers fade" *ngFor="let banner of Banner">
+        <img src={{banner.PictureUrl}} style=" width: 100%; height: 78vh;" />
+    </div>
+
+    <a class="Back " (click)="plusSlides(-1) ">&#10094;</a>
+    <a class="forward " (click)="plusSlides(1) ">&#10095;</a>
+</div>
+<br>
+
+<!-- The circles/dots -->
+<div style="text-align:center ">
+    <span class="dots " (click)="currentSlide(1) "></span>
+    <span *ngFor="let banner of Banner; index as i " class="dots " (click)="currentSlide(1) "></span>
+    <!-- <span class="dots " (click)="currentSlide(3) "></span> -->
+</div>
+
+
+
+
+<!-- <div class="em-l-grid__item em-l-grid__item_left "> -->
+
+<div class="addShadow RedeemBox ">
+
+    <div class="em-c-field__body ">
+        <table>
+            <tr>
+                <td>
+                    <img src={{imageCoinPath}} />
+                </td>
+                <td style="vertical-align: middle;">
+                    <label for=" " class="em-c-field__label ">
+                        <h3>
+                            Your current balance:
+                        </h3>
+                        <div>
+                            {{this.userScore[0].value.Score}} {{data.CoinsName}}
+                        </div>
+                    </label>
+                </td>
+
+                <td style="vertical-align: middle;">
+                    <form>
+                        <input type=" " id="EventCodeInput" class="addShadow em-c-input em-js-input " [placeholder]="data.CodeName" value="" />
+                    </form>
+                </td>
+                <td style="vertical-align: middle;">
+                    <button class="em-c-btn em-c-btn_filter addShadow " (click)="data.earn()">
+                        <span class="em-c-btn__text ">Convert</span>
+                    </button>
+                </td>
+
+
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+
+<div class="em-l-container ">
+    <h2>Events</h2>
+    <!-- <button id="UpcomingBtn" class="em-c-btn em-c-btn_filter2" (click)="getFutureBoothDetail() ">Upcoming</button>
+    <button id="AllEventsBtn" class="em-c-btn em-c-btn_filter2" (click)="getBoothDetail() ">All Events</button> -->
+
+    <ul class="em-c-icon-card-list em-l-grid em-l-grid--3up ">
+        <li class="em-c-icon-card-list__item em-l-grid__item " *ngFor="let challenge of Challenges ">
+
+            <div class="em-c-card ">
+                <div class="em-c-card__body ">
+                    <div class="em-c-media-block em-c-media-block--small ">
+                        <div class="em-c-media-block__media ">
+                            <img src={{challenge.PictureUrl}} alt="Alt Text " class="em-c-media-block__img " />
+                        </div>
+                        <!-- end em-c-media-block__media -->
+                        <div class="em-c-media-block__body ">
+                            <h2 class="em-c-media-block__headline ">
+                                {{challenge.value.Title}}
+                            </h2>
+                            <p class="em-c-media-block__desc ">{{challenge.value.EventDate}}</p>
+                            <p class="em-c-media-block__desc ">{{challenge.value.Description}}</p>
+
+                            <!-- end em-c-status-->
+                        </div>
+                        <!-- end em-c-media-block__body -->
+                    </div>
+                    <!-- end em-c-media-block -->
+                </div>
+                <!-- end em-c-card__body -->
+                <div class="em-c-card__footer ">
+                    <table style="width: 100%; ">
+                        <td style="width: 10%; ">
+                            <img class="coinIcon " src={{coinImagePath}} style="width: 40px; vertical-align: middle; ">
+                        </td>
+                        <td>
+                            {{challenge.value.Score}} {{data.CoinsName}}
+                        </td>
+                        <td>
+                            <button class="em-c-btn em-c-btn_card addShadow" (click)="registerLink(challenge.value.RegisterLink) ">
+                                <span class="em-c-btn__text ">Register</span>
+                            </button>
+                        </td>
+
+                    </table>
+
+                </div>
+                <!-- end em-c-card__footer -->
+            </div>
+            <!-- end em-c-card -->
+        </li>
+    </ul>
+</div>
+<!-- </div> -->
+
+<div class="em-l-container " *ngIf="adminCheck==true ">
+
+    <!--end em-c-table-object__body-->
+    <div class="em-c-table-object__body addShadow ">
+        <div class="em-c-table-object__body-inner ">
+            <table class="em-c-table ">
+                <thead class="em-c-table__header ">
+                    <tr class="em-c-table__header-row ">
+                        <th scope="col " class="em-c-table__header-cell ">Event Names</th>
+                        <th scope="col " class="em-c-table__header-cell ">{{data.CodeName}}</th>
+                        <th scope="col " class="em-c-table__header-cell ">{{data.CoinsName}}</th>
+                        <th scope="col " class="em-c-table__header-cell ">
+                            <span class="em-c-tooltip em-c-tooltip--icon em-c-tooltip--below em-js-tooltip">
+                                <span class="em-c-tooltip__trigger em-js-tooltip-trigger">
+                                    Action (i)
+                                </span>
+                            <span class="em-c-tooltip__content">
+                                    <ul style="font-size: 10px;">
+                                        <li>-Hide to prevent it from appearing on the event page. </li>
+                                        <li>-Enabling/disabling {{data.CodeName}} to {{data.CoinsName}} conversion.</li>
+                                        <li>-Edit to see more detail and make changes.</li>
+                                    </ul>
+                                </span>
+                            </span>
+
+                        </th>
+                        <!-- <th scope="col " class="em-c-table__header-cell ">Created By</th> -->
+                    </tr>
+                    <!-- em-c-table__header-row -->
+                </thead>
+                <!-- end em-c-table__header -->
+                <tbody class="em-c-table__body ">
+                    <tr class="em-c-table__row " *ngFor="let challengedetail of ChallengesAdmin ">
+                        <td class="em-c-table__cell em-js-cell em-js-cell-editable " colspan=" ">
+                            {{challengedetail.value.Title}}
+                        </td>
+                        <td class="em-c-table__cell em-js-cell em-js-cell-editable " colspan=" ">
+                            {{challengedetail.value.EventCode}}
+                        </td>
+                        <td class="em-c-table__cell em-js-cell em-js-cell-editable " colspan=" ">
+                            {{challengedetail.value.Score}}
+                        </td>
+                        <td class="em-c-table__cell em-js-cell em-js-cell-editable " colspan=" ">
+                            <button class="em-c-btn em-c-btn--primary " (click)="UnhideEvent(challengedetail) " *ngIf="challengedetail.value.Display=='Hide' ">Unhide</button>
+                            <button class="em-c-btn em-c-btn--inverted-red " (click)="HideEvent(challengedetail) " *ngIf="challengedetail.value.Display=='Unhide' ">Hide</button>
+                            <button class="em-c-btn em-c-btn--inverted-red " (click)="disableEvent(challengedetail) " *ngIf="challengedetail.value.Active=='Enable' ">Disable</button>
+                            <button class="em-c-btn em-c-btn--primary " (click)="enableEvent(challengedetail) " *ngIf="challengedetail.value.Active!='Enable' ">Enable</button>
+                            <button class="em-c-btn " (click)="getDetail(challengedetail) ">Edit</button>
+
+                        </td>
+                        <!-- <td class="em-c-table__cell em-js-cell em-js-cell-editable " colspan=" ">
+                                {{leader.creator2}}
+                            </td> -->
+                    </tr>
+                    <!-- end em-c-table__row -->
+
+                    <!-- end em-c-table__row -->
+                </tbody>
+                <!-- end em-c-table__body -->
+                <tfoot class="em-c-table__footer ">
+                    <tr class="em-c-table__footer-row ">
+                        <button [routerLink]=" '/Challenge-Form' " class="em-c-btn_filter em-c-btn em-c-btn--primary ">
+                            Create Event
+                        </button>
+                    </tr>
+                </tfoot>
+                <!-- end em-c-table__footer -->
+            </table>
+            <!--end em-c-table-->
+        </div>
+        <!--end em-c-table-object__body-inner-->
+    </div>
+    <!--end em-c-table-object__body-->
+
+
+</div>

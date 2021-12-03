@@ -1,0 +1,9 @@
+{
+    "/getmyproperties/*":{
+        "target" : "https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/package/Code/_api/sp.userprofiles.peoplemanager/",
+        "secure" : false,
+        "loglevel" : "debug",
+        "changeOrigin" : true
+        
+    }
+}

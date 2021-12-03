@@ -1,0 +1,39 @@
+.em-l-grid--2up .em-l-grid__item_left {
+    width: 40%;
+}
+
+.em-l-grid--2up .em-l-grid__item_right {
+    width: 60%;
+}
+
+.em-c-btn_filter {
+    border-radius: 50px;
+    margin-left: 5%;
+    background-color: rgb(122, 0, 0);
+    border-color: rgb(122, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+.em-c-btn_filter:hover {
+    background-color: rgb(172, 54, 54);
+    border-color: rgb(179, 50, 50);
+    color: rgb(255, 255, 255)
+}
+
+.em-c-btn_card:hover {
+    border-color: rgb(122, 0, 0);
+    color: rgb(122, 0, 0);
+    background-color: rgb(250, 238, 238);
+}
+
+.em-c-card {
+    background-color: white;
+    border-radius: 10px;
+    border-color: white;
+    box-shadow: 0px 5px 10px rgb(201, 201, 201);
+}
+
+.em-c-card__footer {
+    background-color: white;
+    border-color: white;
+}

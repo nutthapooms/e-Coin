@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="188" height="188" viewBox="0 0 188 188">
+  <g id="Group_80" data-name="Group 80" transform="translate(-1068 -823)">
+    <circle id="Ellipse_24" data-name="Ellipse 24" cx="94" cy="94" r="94" transform="translate(1068 823)" fill="#fff4ef"/>
+    <g id="reward_icon" data-name="reward icon" transform="translate(1111.397 866.398)">
+      <path id="Path_820" data-name="Path 820" d="M0,0H101.2V101.2H0Z" fill="none"/>
+      <rect id="Rectangle_42" data-name="Rectangle 42" width="75.463" height="17.006" rx="1" transform="translate(12.754 34.011)" fill="none" stroke="#bb8378" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+      <line id="Line_13" data-name="Line 13" y2="54.206" transform="translate(51.017 34.011)" fill="none" stroke="#bb8378" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+      <path id="Path_821" data-name="Path 821" d="M64.036,12V41.518A8.434,8.434,0,0,1,55.6,49.952H13.434A8.434,8.434,0,0,1,5,41.518V12" transform="translate(16.084 38.602)" fill="none" stroke="#bb8378" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+      <path id="Path_822" data-name="Path 822" d="M15.542,24.086A10.542,10.542,0,1,1,15.542,3c8.325-.145,15.854,8.221,18.976,21.084C37.64,11.222,45.169,2.856,53.494,3a10.542,10.542,0,0,1,0,21.084" transform="translate(16.084 9.649)" fill="none" stroke="#bb8378" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,92 @@
+<header class="em-c-header header1" role="banner">
+    <div *ngIf="data.loading" class="overlay">
+        <h2 style="text-align: center; margin: auto; margin-top: 30%;">{{data.loadingMSG}}</h2>
+    </div>
+    <div class="em-l-container em-c-header__inner">
+        <div class="em-c-header__body">
+            <div class="em-c-header__title-container">
+
+                <h2 class="em-c-header__title">
+                    <a href="#" rel="home" class="em-c-header__title-link" [innerHTML]="TabName[5].Title"></a>
+                </h2>
+
+            </div>
+            <div class=" em-js-nav-panel">
+                <nav id="nav" class="em-c-primary-nav" role="navigation">
+                    <ul class="em-c-primary-nav__list">
+                        <li class=" ">
+                            <a [routerLink]="'/Landing-site'" [innerHTML]="TabName[0].Title" *ngIf="TabName[0].Status == 'Active'" id="GetCoinBtn" class="em-c-primary-nav__link" [routerLinkActive]="'em-is-current em-is-current2'">
+                                Events
+                            </a>
+                        </li>
+                        <li class="">
+                            <a [routerLink]="'/My-Room'" [innerHTML]="TabName[1].Title" *ngIf="TabName[1].Status == 'Active'" class="em-c-primary-nav__link " [routerLinkActive]="'em-is-current'">
+                                Redemption Logs
+                            </a>
+                        </li>
+                        <li class="">
+                            <a [routerLink]="'/Shop-Site'" [innerHTML]="TabName[2].Title" *ngIf="TabName[2].Status == 'Active'" class="em-c-primary-nav__link " [routerLinkActive]="'em-is-current'">
+                                Shops
+                            </a>
+                        </li>
+                        <li class="">
+                            <a [routerLink]="'/Site-Info'" [innerHTML]="TabName[3].Title" *ngIf="TabName[3].Status == 'Active'" class="em-c-primary-nav__link " [routerLinkActive]="'em-is-current'">
+                                About Us
+                            </a>
+                        </li>
+                        <li class="">
+                            <a [routerLink]="'/Leader-Board'" [innerHTML]="TabName[4].Title" *ngIf="TabName[4].Status == 'Active'" class="em-c-primary-nav__link " [routerLinkActive]="'em-is-current'">
+                                LeaderBoard
+                            </a>
+                        </li>
+                        <!-- end em-c-nav__list__item -->
+
+                        <!-- end em-c-nav__list__item -->
+
+                        <!-- end em-c-nav__list__item -->
+
+                    </ul>
+                    <!-- end em-c-nav__list -->
+                </nav>
+                <!-- end em-c-nav -->
+            </div>
+            <!-- end em-c-header__left -->
+            <div class="em-c-header__nav-container em-js-nav-panel">
+                <nav id="nav" class="em-c-primary-nav" role="navigation">
+                    <ul id="profileSection " class="em-c-primary-nav__list">
+                        <li class="em-c-primary-nav__item">
+                            <div>
+                                <img id="ProfileImage" class="em-c-media-block__img" alt="">
+                            </div>
+                        </li>
+                        <li class="em-c-primary-nav__item">
+                            <div>Hello {{userProfile.DisplayName}}!</div>
+                        </li>
+                        <!-- end em-c-nav__list__item -->
+
+                        <!-- end em-c-nav__list__item -->
+
+                        <!-- end em-c-nav__list__item -->
+
+                    </ul>
+                    <!-- end em-c-nav__list -->
+                </nav>
+                <!-- end em-c-nav -->
+            </div>
+            <!-- end em-c-btn -->
+
+            <!-- end em-c-header__nav -->
+        </div>
+        <!-- end em-c-header__body -->
+    </div>
+
+    <!-- end em-l-container -->
+</header>
+
+
+<!-- <button class="em-c-btn contactUs">
+  Contact Us
+</button> -->
+<!-- end em-c-header -->
+<!-- uncoment the following when using SPA (e.g. Angular, React, etc). For traditional websites, Unity JS handles this automagically :) -->
+<!-- <div class="em-c-header-overlay"></div> -->

@@ -1,0 +1,175 @@
+<!-- 'fpo' stands for 'for placement only'. Replace the 'fpo-block' div element with your own markup-->
+<div class="em-l-container">
+    <li class="em-c-icon-card-list__item em-l-grid__item">
+        <div class="em-c-icon-card ">
+            <div class="em-c-icon-card__body">
+                <img src={{challengeDetail.PictureUrl}} class="em-c-icon em-c-icon--large em-c-icon-card__icon" />
+                <div class="em-c-icon-card__label">
+                    {{challengeDetail.value.Title}}
+                </div>
+                <div class="em-c-icon-card__label">
+                    {{challengeDetail.value.Description}}
+                </div>
+                <div class="em-c-icon-card__label">
+                    {{challengeDetail.value.EventCode}}
+                </div>
+                <div class="em-c-icon-card__label">
+                    VCoins : {{challengeDetail.value.Score}}
+                </div>
+                <div class="em-c-icon-card__label">
+                    Code left : {{challengeDetail.value.CodeLimit}}
+                </div>
+                <div class="em-c-icon-card__label">
+                    URL : {{challengeDetail.value.RegisterLink}}
+                </div>
+
+
+                <!-- end em-c-field -->
+            </div>
+            <!-- end em-c-icon-card__body -->
+        </div>
+        <!-- end em-c-icon-card -->
+    </li>
+    <li>
+        <div class="em-c-field ">
+            <label for="" class="em-c-field__label">Event name</label>
+            <div class="em-c-field__body">
+                <input type="" ng-model="testModel" id="eventName" class="em-c-input em-js-input" placeholder="Event name" value="" />
+            </div>
+            <!-- end em-c-field__body -->
+            <div class="em-c-field__note">system will check your event name</div>
+        </div>
+        <!-- end em-c-field -->
+
+        <div class="em-c-field ">
+            <label for="" class="em-c-field__label">Event Description</label>
+            <div class="em-c-field__body">
+                <input type="" id="eventDescription" class="em-c-input em-js-input" placeholder="Desciption" value="" />
+            </div>
+            <!-- end em-c-field__body -->
+        </div>
+        <!-- end em-c-field -->
+        <div>
+            <!-- <div *ngIf = "transactions.length == 0 "> -->
+            <div class="em-c-field ">
+                <label for="" class="em-c-field__label">Url</label>
+                <div class="em-c-field__body">
+                    <input type="" id="eventUrl" class="em-c-input em-js-input" placeholder="eg. https://eventx.exxonmobil.com" value="testing" />
+                </div>
+                <!-- end em-c-field__body -->
+                <div class="em-c-field__note">input a register page url</div>
+            </div>
+            <!-- end em-c-field -->
+            <div class="em-c-field ">
+                <label for="" class="em-c-field__label">Code</label>
+                <div class="em-c-field__body">
+                    <input type="" id="eventCode" class="em-c-input em-js-input" placeholder="Event code" value="" />
+                </div>
+                <!-- end em-c-field__body -->
+                <!-- <div class="em-c-field__note">system will check your event code</div> -->
+            </div>
+            <!-- end em-c-field -->
+            <div class="em-c-field ">
+                <label for="" class="em-c-field__label">Coins per code</label>
+                <div class="em-c-field__body">
+                    <select class="em-c-select em-c-select" id="codeEarning" placeholder="please select">
+            <optgroup label="">
+              <option value="100">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="200">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+              <option value="600">600</option>
+              <option value="800">800</option>
+              <option value="1000">1000</option>
+
+
+            </optgroup>
+          </select>
+                </div>
+                <!-- end em-c-field__body -->
+            </div>
+            <!-- end em-c-field -->
+        </div>
+        <div class="em-c-field ">
+            <label for="" class="em-c-field__label">Code limit</label>
+            <div class="em-c-field__body">
+                <input type="" id="codeLimit" class="em-c-input em-js-input" placeholder="number of code" value="" />
+            </div>
+            <!-- end em-c-field__body -->
+        </div>
+        <!-- end em-c-field -->
+        <button id="submitBTN" class="em-c-btn em-c-btn_filter" (click)="updateChange(challengeDetail.value.Id,challengeDetail)">
+      <span class="em-c-btn__text">Submit Event</span>
+
+    </button>
+        <button id="cancelBTN" class="em-c-btn em-c-btn_filter" (click)="return()">
+      <span class="em-c-btn__text">Cancel</span>
+
+    </button>
+    </li>
+    <table>
+        <tr>
+            <td>
+                <!--end em-c-table-object__body-->
+                <div class="em-c-table-object__body">
+                    <div class="em-c-table-object__body-inner">
+                        <table class="em-c-table ">
+                            <thead class="em-c-table__header">
+                                <tr class="em-c-table__header-row">
+                                    <th scope="col" class="em-c-table__header-cell ">Item</th>
+                                    <th scope="col" class="em-c-table__header-cell ">User</th>
+                                    <th scope="col" class="em-c-table__header-cell ">Transaction Date</th>
+
+                                    <!-- <th scope="col" class="em-c-table__header-cell ">Created By</th> -->
+
+                                </tr>
+                                <!-- em-c-table__header-row -->
+                            </thead>
+                            <!-- end em-c-table__header -->
+                            <tbody class="em-c-table__body ">
+                                <tr class="em-c-table__row " *ngFor="let transaction of transactions">
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                        {{transaction.value.EventOrPrice}}
+                                    </td>
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                        {{transaction.creator2}}
+
+                                    </td>
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                        {{transaction.value.Created}}
+                                    </td>
+                                    <!-- <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                  {{leader.creator2}}
+                              </td> -->
+                                </tr>
+                                <!-- end em-c-table__row -->
+
+                                <!-- end em-c-table__row -->
+                            </tbody>
+                            <!-- end em-c-table__body -->
+                            <tfoot class="em-c-table__footer">
+                                <tr class="em-c-table__footer-row">
+                                </tr>
+                            </tfoot>
+                            <!-- end em-c-table__footer -->
+                        </table>
+                        <!--end em-c-table-->
+                    </div>
+                    <!--end em-c-table-object__body-inner-->
+                </div>
+                <!--end em-c-table-object__body-->
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <div style="background-image: url();">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- end em-l__main -->

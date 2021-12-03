@@ -1,0 +1,322 @@
+<br>
+<br>
+<div class="em-c-modal em-js-modal-only em-is-closed" id="comfirmation_default">
+    <div class="em-c-modal__window em-js-modal-window">
+        <div class="em-c-modal__header">
+            <h3 class="em-c-modal__title">Redeem Confirmation</h3>
+            <button class="em-c-btn em-c-btn--bare em-c-modal__close-btn em-js-modal-close-trigger" (click)="closeConfirmationDefault()">
+                <span class="em-c-btn__text">Close</span>
+            </button>
+            <!-- end em-c-btn -->
+        </div>
+        <!-- end em-c-modal__header -->
+        <div class="em-c-media-block em-c-media-block--small">
+            <div class="em-c-media-block__media">
+                <img src={{temp_picture_url}} alt="Alt Text" class="em-c-media-block__img" />
+            </div>
+            <div class="em-c-media-block__body">
+                <h2 class="em-c-media-block__headline ">
+                    {{temp_prize.value.Title}}
+                </h2>
+
+                <p class="em-c-media-block__desc">Valid until: {{temp_prize.value.ValidUntil}}</p>
+                <p class="em-c-media-block__desc">{{temp_prize.value.Description}}</p>
+
+            </div>
+
+        </div>
+        <table>
+            <td style="width: 10%;">
+                <img class="coinIcon" src={{coinImagePath}} style="width: 40px; vertical-align: middle;">
+            </td>
+            <td>
+                {{temp_prize.value.Price}} {{data.CoinsName}}
+            </td>
+        </table>
+
+        <div [innerHTML]="data.confirmationMessage" id="confirmationMessage_Default" class="em-c-modal__body em-c-text-passage em-c-text-passage--small">
+            Message
+        </div>
+        <!-- end em-c-modal__body -->
+        <div id="confirmationFooter_Default" class="em-c-modal__footer em-c-text-passage em-c-text-passage--small">
+            <tr>
+                <td>
+                    <button class="em-c-btn em-c-btn_filter" (click)="redeem('No')">
+                        <span class="em-c-btn__text">Submit</span>
+                    </button>
+                </td>
+                <td>
+                    <button class="em-c-btn em-c-btn_card" (click)="closeConfirmationDefault()">
+                        <span class="em-c-btn__text">Cancel</span>
+                    </button>
+                </td>
+            </tr>
+        </div>
+        <!-- end em-c-modal__footer -->
+    </div>
+    <!-- end em-c-modal__window -->
+</div>
+<!-- end em-c-modal -->
+
+<div class="em-c-modal em-js-modal-only em-is-closed" id="comfirmation_gacha">
+    <div class="em-c-modal__window em-js-modal-window">
+        <div class="em-c-modal__header">
+            <h3 class="em-c-modal__title">Redeem Confirmation</h3>
+            <button class="em-c-btn em-c-btn--bare em-c-modal__close-btn em-js-modal-close-trigger" (click)="closeConfirmationGacha()">
+                <span class="em-c-btn__text">Close</span>
+            </button>
+            <!-- end em-c-btn -->
+        </div>
+
+        <div class="em-c-media-block em-c-media-block--small">
+            <div class="em-c-media-block__media">
+                <img src={{temp_picture_url}} alt="Alt Text" class="em-c-media-block__img" />
+            </div>
+            <div class="em-c-media-block__body">
+                <h2 class="em-c-media-block__headline ">
+                    {{temp_prize.value.Title}}
+                </h2>
+
+                <!-- <p class="em-c-media-block__desc">Valid until: {{temp_prize.value.ValidUntil}}</p> -->
+                <p class="em-c-media-block__desc">{{temp_prize.value.Description}}</p>
+
+            </div>
+        </div>
+        <table>
+            <td style="width: 10%;">
+                <img class="coinIcon" src={{coinImagePath}} style="width: 40px; vertical-align: middle;">
+            </td>
+            <td>
+                {{calculator*temp_prize.value.Price}} {{data.CoinsName}}
+            </td>
+        </table>
+        <!-- end em-c-modal__header -->
+        <div [innerHTML]="data.confirmationMessage" id="confirmationMessage_Gacha" class=" em-c-text-passage em-c-text-passage--small">
+            Message
+
+        </div>
+        <table>
+            <tr>
+
+                <td style="width: 40%;">
+                    <input type="number" (keyup)="onKeyUp()" value="1" id="ItemAmount" class="em-c-input em-js-input" step="1" />
+                </td>
+                <td style="vertical-align:middle;">
+                    tickets
+                </td>
+            </tr>
+        </table>
+
+
+        <div>
+        </div>
+        <!-- end em-c-modal__body -->
+        <div id="confirmationFooter_Gacha" class="em-c-modal__footer em-c-text-passage em-c-text-passage--small">
+            <tr>
+                <td>
+                    <button class="em-c-btn em-c-btn_filter" (click)="redeem('yes')">
+                        <span class="em-c-btn__text">Submit</span>
+                    </button>
+                </td>
+                <td>
+                    <button class="em-c-btn em-c-btn_card" (click)="closeConfirmationGacha()">
+                        <span class="em-c-btn__text">Cancel</span>
+                    </button>
+                </td>
+            </tr>
+        </div>
+        <!-- end em-c-modal__footer -->
+    </div>
+    <!-- end em-c-modal__window -->
+</div>
+<!-- end em-c-modal -->
+
+
+<div *ngIf="loading" class="overlay">
+    <h2 style="text-align: center; margin: auto; margin-top: 30%;">Loading</h2>
+</div>
+
+<div class="em-l-grid em-l-grid--2up ">
+    <div class="em-l-grid__item em-l-grid__item_left ">
+        <h2 class="PageTitle">Rewards</h2>
+
+        <div class="PagePics">
+
+
+            <img src={{imagePath}} />
+
+        </div>
+        <div class="em-c-field RedeemBox">
+            <label for="" class="em-c-field__label">
+                <h3>
+                    Your current balance:
+                </h3>
+                <div>
+                    {{this.userScore[0].value.Score}} {{data.CoinsName}}
+                </div>
+                <!-- <div>
+                Lucky Ticket : {{this.userScore[0].value.Gachapon}}
+              </div> -->
+            </label>
+            <div class="em-c-field__body">
+                <tr>
+                    <td>
+                        <form>
+                            <input type="" id="EventCodeInput" class="addShadow em-c-input em-js-input" [placeholder]="data.CodeName" value="" />
+                        </form>
+                    </td>
+                    <td>
+                        <button class="em-c-btn em-c-btn_filter addShadow" (click)="data.earn()">
+                            <span class="em-c-btn__text">Convert</span>
+                        </button>
+                    </td>
+                </tr>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- end em-l-grid__item -->
+    <div class="em-l-grid__item em-l-grid__item_right">
+        <div class="em-l-container-right">
+            <div style="width: 93%;background-color: rgb(122, 0, 0);color: white;padding:1%; border-radius:5px">
+                <div style="border-radius:5px; border-color: white; border-style: solid;padding:1%;">
+                    <H3 style="text-align: center">Quarter LUCKY DRAW</H3>
+
+                </div>
+            </div>
+
+            <!-- <p class="em-c-media-block__desc">Valid until: {{filterItemsOfGacha('yes')[0].value.ValidUntil}}</p> -->
+            <p style="padding-top: 1%;">Lucky draw will be held at the end of every quarter. The more tickets you redeem, the higher the chance of winning.</p>
+            <P>The last day to redeem is {{filterItemsOfGacha('yes')[0].value.ValidUntil}}. And the winner will be announce on 1 April 2022</P>
+            <div class="em-c-icon-card-list em-l-grid em-l-grid--3up ">
+                <div class="em-c-icon-card-list__item em-l-grid__item" [ngStyle]="{'background-image': 'url('+LuckyDrawBG+')'}" style="background-repeat: no-repeat; background-position: center;background-size: 96% 99%; margin-right: 2%; min-height:400px; width: 30%;"
+                    *ngFor="let prize of filterItemsOfGacha('yes')">
+
+                    <div class="em-c-card " *ngIf="prize.value.IsGacha == 'yes'" style="border-style: hidden; background-color:rgba(255, 255, 255, 0);">
+                        <div class="em-c-card__body" style="background-color:rgba(255, 255, 255, 0);">
+                            <div class="em-c-media-block__media" style="margin: auto; padding-top:10%; height: 200px; width:auto">
+                                <img src={{prize.PictureUrl}} alt="Alt Text" class="em-c-media-block__img" />
+                            </div>
+                            <div class="em-c-media-block em-c-media-block--small" style="padding:2%">
+                                <!-- <div class="em-c-media-block__media">
+                                    <img src={{prize.PictureUrl}} alt="Alt Text" class="em-c-media-block__img" />
+                                </div> -->
+                                <!-- end em-c-media-block__media -->
+                                <div class="em-c-media-block__body">
+                                    <h2 class="em-c-media-block__headline ">
+                                        {{prize.value.Title}}
+                                    </h2>
+                                    <p class="em-c-media-block__desc">Total tickets sold: {{prize.value.Sold}}</p>
+
+                                    <!-- <p class="em-c-media-block__desc">Valid until: {{prize.value.ValidUntil}}</p> -->
+                                    <p class="em-c-media-block__desc">Description: {{prize.value.Description}}</p>
+
+                                    <!-- end em-c-status-->
+                                </div>
+                                <!-- end em-c-media-block__body -->
+                            </div>
+                            <!-- end em-c-media-block -->
+                        </div>
+                        <!-- end em-c-card__body -->
+
+                        <div style="border-top: rgb(122, 0, 0);border-style:dashed; border-bottom: hidden;">
+                        </div>
+
+                        <div class="em-c-card__footer" style="background-color:rgba(255, 255, 255, 0); border-style: hidden; padding-bottom: 15%;">
+                            <!-- <input type="number" placeholder="amount"> -->
+                            <table style="width: 100%;">
+                                <td style="width: 40%;">
+                                    <img class="coinIcon" src={{coinImagePath}} style="display: block; width: 40px; margin: auto; margin-right: 0px;">
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    {{prize.value.Price}} {{data.CoinsName}}
+                                </td>
+                                <td>
+                            </table>
+                            <button class="em-c-btn em-c-btn_card_gacha" (click)="chooseItem(prize.value.Title,prize.value.Price,prize.value.IsGacha,prize)">
+                                <span class="em-c-btn__text">Redeem</span>
+                            </button>
+                            <!-- </td>
+
+                            </table> -->
+
+                        </div>
+                        <!-- end em-c-card__footer -->
+                    </div>
+                    <!-- end em-c-card -->
+                </div>
+            </div>
+            <!-- end em-l-grid__item -->
+            <br>
+            <H3>Rewards</H3>
+
+            <ul class="em-c-icon-card-list em-l-grid em-l-grid--2up ">
+
+                <li class="em-c-icon-card-list__item em-l-grid__item" *ngFor="let prize of filterItemsOfGacha('No')">
+
+                    <div class="em-c-card " *ngIf="prize.value.IsGacha != 'yes'">
+                        <div class="em-c-card__body">
+                            <div class="em-c-media-block em-c-media-block--small">
+                                <div class="em-c-media-block__media">
+                                    <img src={{prize.PictureUrl}} alt="Alt Text" class="em-c-media-block__img" />
+                                </div>
+                                <!-- end em-c-media-block__media -->
+                                <div class="em-c-media-block__body">
+                                    <h2 class="em-c-media-block__headline ">
+                                        {{prize.value.Title}}
+                                    </h2>
+                                    <tr>
+                                        <!-- <td style="width: 100%;">
+                                            <div class="gauge">
+                                                <div class="gauge_inner" [ngStyle]="{'width':prize.value.AmountLeft/prize.value.TotalAmount*100+'%'}">
+                                                </div>
+                                            </div>
+                                        </td> -->
+                                        <!-- <td> -->
+                                        Remain {{prize.value.AmountLeft}} out of {{prize.value.TotalAmount}}
+                                        <!-- </td> -->
+                                    </tr>
+
+                                    <!-- <p class="em-c-media-block__desc">Valid until: {{prize.value.ValidUntil}}</p> -->
+                                    <p class="em-c-media-block__desc">Description: {{prize.value.Description}}</p>
+                                    <!-- end em-c-status-->
+                                </div>
+                                <!-- end em-c-media-block__body -->
+                            </div>
+                            <!-- end em-c-media-block -->
+                        </div>
+                        <!-- end em-c-card__body -->
+                        <div class="em-c-card__footer">
+                            <table style="width: 100%;">
+                                <td style="width: 10%;">
+                                    <img class="coinIcon" src={{coinImagePath}} style="width: 40px; vertical-align: middle;">
+                                </td>
+                                <td>
+                                    {{prize.value.Price}} {{data.CoinsName}}
+                                </td>
+                                <td>
+                                    <button disabled class="em-c-btn em-c-btn_soldout" *ngIf="prize.value.AmountLeft == 0">
+                                        <span class="em-c-btn__text">Sold out</span>
+                                    </button>
+                                    <button class="em-c-btn em-c-btn_card" *ngIf="prize.value.AmountLeft > 0" (click)="chooseItem(prize.value.Title,prize.value.Price,prize.value.IsGacha,prize)">
+                                        <span class="em-c-btn__text">Redeem</span>
+                                    </button>
+                                </td>
+
+                            </table>
+
+                        </div>
+                        <!-- end em-c-card__footer -->
+                    </div>
+                    <!-- end em-c-card -->
+                </li>
+            </ul>
+            <!-- end em-l-grid__item -->
+        </div>
+
+
+    </div>
+    <!-- end em-c-figure -->
+    <!-- End main-->
+</div>

@@ -1,0 +1,137 @@
+<br>
+<br>
+<div class="em-l-container">
+    <h2>
+        About us
+    </h2>
+    <table class="get-to-know" style="margin-top: 2%;">
+        <tr>
+            <!-- <td>
+                <img src={{imagePath}} />
+            </td> -->
+            <td style="padding-left :3%;">
+                <h3>
+                    {{GetToKnow}}
+                </h3>
+                <div style="width: 80%;" [innerHTML]="GetToKnowDesc">
+                </div>
+
+            </td>
+        </tr>
+    </table>
+    <h3>
+        How To
+    </h3>
+    <div class="em-l-grid em-l-grid--4up ">
+        <div id="Code" class="em-l-grid__item instructionBlock" (click)="changeHowto(1)">
+            <!-- 'fpo' stands for 'for placement only'. Replace the 'fpo-block' div element with your own markup-->
+            <img src={{eCode_img}} class="howto_img" />
+            <h3 class="howto_title">
+                {{GetCodes}}
+            </h3>
+        </div>
+        <!-- end em-l-grid__item -->
+        <div id="Coin" class="em-l-grid__item instructionBlock" (click)="changeHowto(2)">
+            <!-- 'fpo' stands for 'for placement only'. Replace the 'fpo-block' div element with your own markup-->
+            <img src={{Vcoin_img}} class="howto_img" />
+            <h3 class="howto_title">
+                {{CollectCoins}}
+            </h3>
+        </div>
+        <!-- end em-l-grid__item -->
+        <div id="Reward" class="em-l-grid__item instructionBlock" (click)="changeHowto(3)">
+            <!-- 'fpo' stands for 'for placement only'. Replace the 'fpo-block' div element with your own markup-->
+            <img src={{Reward_img}} class="howto_img" />
+            <h3 class="howto_title">
+                {{RedeemRewards}}
+            </h3>
+        </div>
+        <!-- end em-l-grid__item -->
+        <div id="LuckyDraw" class="em-l-grid__item instructionBlock" (click)="changeHowto(4)">
+            <!-- 'fpo' stands for 'for placement only'. Replace the 'fpo-block' div element with your own markup-->
+            <img src={{Gacha_img}} class="howto_img" />
+            <h3 class="howto_title">
+                {{EnterLD}}
+            </h3>
+        </div>
+        <!-- end em-l-grid__item -->
+    </div>
+    <!-- end em-l-grid -->
+    <table class="get-to-know " *ngIf="HowToIndicator == 1">
+        <tr>
+
+            <td>
+                <h3>
+                    {{HowtoCodes}}
+                </h3>
+                <ul [innerHTML]="HowtoCodesDesc">
+                    <!-- {{HowtoCodesDesc}} -->
+                </ul>
+            </td>
+            <td>
+                <img src={{imagePathArr[5]}} style="max-width: 500px;" />
+            </td>
+        </tr>
+    </table>
+    <table class="get-to-know " *ngIf="HowToIndicator == 2">
+        <tr>
+
+            <td>
+                <h3>
+                    {{HowtoCoins}}
+                </h3>
+                <ul [innerHTML]="HowtoCoinsDesc">
+                    <!-- {{HowtoCoinsDesc}} -->
+                </ul>
+            </td>
+            <td>
+                <img src={{imagePathArr[6]}} style="max-width: 500px;" />
+            </td>
+        </tr>
+    </table>
+    <table class="get-to-know " *ngIf="HowToIndicator == 3">
+        <tr>
+
+            <td>
+                <h3>
+                    {{HowtoRewards}}
+                </h3>
+                <ul [innerHTML]="HowtoRewardsDesc">
+                </ul>
+            </td>
+            <td>
+                <img src={{imagePathArr[7]}} style="max-width: 500px;" />
+            </td>
+        </tr>
+    </table>
+    <table class="get-to-know " *ngIf="HowToIndicator == 4">
+        <tr>
+
+            <td>
+                <h3>
+                    {{HowtoLuckyDraws}}
+                </h3>
+                <ul [innerHTML]="HowtoLuckyDrawsDesc">
+                </ul>
+            </td>
+            <td>
+                <img src={{imagePathArr[8]}} style="max-width: 500px;" />
+            </td>
+        </tr>
+    </table>
+    <table class="get-to-know">
+        <tr>
+
+            <td>
+                <h3>
+                    {{ContactUs}}
+                </h3>
+                <ul [innerHTML]="ContactUsDesc">
+                </ul>
+            </td>
+            <td>
+                <img src={{imagePathArr[9]}} />
+            </td>
+        </tr>
+    </table>
+</div>

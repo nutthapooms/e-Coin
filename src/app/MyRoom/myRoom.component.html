@@ -1,0 +1,206 @@
+<br>
+<br>
+
+
+<div class="em-l-grid em-l-grid--2up ">
+    <div class="em-l-grid__item em-l-grid__item_left ">
+        <h2 class="PageTitle">History</h2>
+
+        <div class="PagePics">
+
+
+            <img src={{imagePath}} />
+
+        </div>
+        <div class="em-c-field RedeemBox">
+            <label for="" class="em-c-field__label">
+                <h3>
+                    Your current balance:
+                </h3>
+                <div>
+                    {{this.userScore[0].value.Score}} {{data.CoinsName}}
+                </div>
+                <!-- <div>
+                Lucky Ticket : {{this.userScore[0].value.Gachapon}}
+              </div> -->
+            </label>
+            <div class="em-c-field__body">
+                <tr>
+                    <td>
+                        <form>
+                            <input type="" id="EventCodeInput" class="addShadow em-c-input em-js-input" [placeholder]="data.CodeName" value="" />
+                        </form>
+                    </td>
+                    <td>
+                        <button class="em-c-btn em-c-btn_filter addShadow" (click)="data.earn()">
+                            <span class="em-c-btn__text">Convert</span>
+                        </button>
+                    </td>
+                </tr>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- end em-l-grid__item -->
+    <div class="em-l-grid__item em-l-grid__item_right">
+        <div class="em-l-container-right">
+            <h3>My Lucky Draw Tickets</h3>
+            Hold on tight. Lucky draw will be announce on 1 April 2022
+            <div class="em-c-icon-card-list em-l-grid em-l-grid--3up ">
+                <div class="em-c-icon-card-list__item em-l-grid__item" [ngStyle]="{'background-image': 'url('+LuckyDrawBG+')'}" style="background-repeat: no-repeat; background-position: center;background-size: 96% 99%; margin-right: 2%; min-height:400px; width: 30%;"
+                    *ngFor="let transaction of filterItemsOfTransactions('yes')">
+
+                    <div class="em-c-card" style="border-style: hidden; background-color:rgba(255, 255, 255, 0);">
+                        <div class="em-c-card__body" style="background-color:rgba(255, 255, 255, 0);">
+                            <div class="em-c-media-block__media" style="margin: auto; padding-top:10%; height: 200px; width:auto">
+                                <img src={{transaction.PictureUrl}} alt="Alt Text" class="em-c-media-block__img" />
+                            </div>
+                            <div class="em-c-media-block em-c-media-block--small" style="padding:2%">
+                                <!-- <div class="em-c-media-block__media">
+                                    <img src={{prize.PictureUrl}} alt="Alt Text" class="em-c-media-block__img" />
+                                </div> -->
+                                <!-- end em-c-media-block__media -->
+                                <div class="em-c-media-block__body">
+                                    <h2 class="em-c-media-block__headline ">
+                                        {{transaction.EventOrPrice}}
+                                    </h2>
+                                    <!-- <p class="em-c-media-block__desc">Total tickets sold: {{transaction.value.Sold}}</p> -->
+
+                                    <!-- <p class="em-c-media-block__desc">Valid until: {{prize.value.ValidUntil}}</p> -->
+                                    <!-- <p class="em-c-media-block__desc">Description: {{prize.value.Description}}</p> -->
+
+                                    <!-- end em-c-status-->
+                                </div>
+                                <!-- end em-c-media-block__body -->
+                            </div>
+                            <!-- end em-c-media-block -->
+                        </div>
+                        <!-- end em-c-card__body -->
+
+                        <div style="border-top: rgb(122, 0, 0);border-style:dashed; border-bottom: hidden;">
+                        </div>
+
+                        <div class="em-c-card__footer" style="background-color:rgba(255, 255, 255, 0); border-style: hidden; padding-bottom: 15%;">
+                            <!-- <input type="number" placeholder="amount"> -->
+                            <h4>
+                                Owned : {{transaction.Unit}} tickets
+
+                            </h4>
+                            <!-- </td>
+
+                            </table> -->
+
+                        </div>
+                        <!-- end em-c-card__footer -->
+                    </div>
+                    <!-- end em-c-card -->
+                </div>
+            </div>
+            <br>
+            <h3>Transaction History</h3>
+            <table>
+                <tr>
+                    <td>
+                        <!--end em-c-table-object__body-->
+                        <div class="em-c-table-object__body">
+                            <div class="em-c-table-object__body-inner">
+                                <table class="em-c-table " style="background-color: white;">
+                                    <thead class="em-c-table__header">
+                                        <tr class="em-c-table__header-row">
+                                            <th scope="col" class="em-c-table__header-cell ">Date</th>
+                                            <th scope="col" class="em-c-table__header-cell ">{{data.CodeName}}</th>
+                                            <th scope="col" class="em-c-table__header-cell ">Reward</th>
+                                            <th scope="col" class="em-c-table__header-cell ">Quantity</th>
+                                            <th scope="col" class="em-c-table__header-cell ">{{data.CoinsName}}</th>
+                                            <!-- <th scope="col" class="em-c-table__header-cell ">Created By</th> -->
+
+                                        </tr>
+                                        <!-- em-c-table__header-row -->
+                                    </thead>
+                                    <!-- end em-c-table__header -->
+                                    <tbody class="em-c-table__body ">
+                                        <tr class="em-c-table__row " *ngFor="let history of transactionsHistory.slice(0, maxHistory)">
+                                            <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                                {{history.Created}}
+
+                                            </td>
+                                            <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                                <p *ngIf="history.Operation =='earn'">{{history.EventOrPrice}} {{history.EventName}}
+                                                </p>
+                                            </td>
+                                            <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                                <p *ngIf="history.Operation =='reduction'">{{history.EventOrPrice}}</p>
+                                            </td>
+
+                                            <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                                {{history.Amount}}
+
+                                            </td>
+                                            <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                                <span *ngIf="history.Operation == 'earn'" style="color: green">+{{history.Score}}</span>
+                                                <span *ngIf="history.Operation == 'reduction'" style="color: red;">-{{history.Score}}</span>
+
+                                            </td>
+                                            <!-- <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                              {{leader.creator2}}
+                          </td> -->
+                                        </tr>
+                                        <!-- end em-c-table__row -->
+
+                                        <!-- end em-c-table__row -->
+                                    </tbody>
+                                    <!-- end em-c-table__body -->
+                                    <tfoot class="em-c-table__footer">
+                                        <tr class="em-c-table__footer-row">
+                                        </tr>
+                                    </tfoot>
+                                    <!-- end em-c-table__footer -->
+                                </table>
+                                <!--end em-c-table-->
+                            </div>
+                            <!--end em-c-table-object__body-inner-->
+                        </div>
+                        <button class="em-c-btn em-c-btn_filter addShadow" (click)="limitcap()">
+                            <span class="em-c-btn__text">See all</span>
+                        </button>
+                        <!--end em-c-table-object__body-->
+                    </td>
+                    <td>
+
+
+                        <!--end em-c-table-object__body-->
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <!-- <div class="em-c-table-object__body">
+        <div class="em-c-table-object__body-inner">
+            <table class="em-c-table ">
+                <thead class="em-c-table__header">
+                    <tr class="em-c-table__header-row">
+                        <th scope="col" class="em-c-table__header-cell ">Item</th>
+                        <th scope="col" class="em-c-table__header-cell ">Unit</th>
+
+                    </tr>
+                </thead>
+                <tbody class="em-c-table__body ">
+                    <tr class="em-c-table__row " *ngFor="let transaction of transactions">
+                        <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                            {{transaction.EventOrPrice}}
+                        </td>
+                        <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                            {{transaction.Unit}}
+
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot class="em-c-table__footer">
+                    <tr class="em-c-table__footer-row">
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div> -->
