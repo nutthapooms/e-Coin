@@ -30,7 +30,7 @@ export class MyRoomComponent implements OnInit {
 
 
   limitcap() {
-    this.maxHistory = -1
+    this.maxHistory = this.transactionsHistory.length;
   }
 
 
