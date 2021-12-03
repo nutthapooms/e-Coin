@@ -1,9 +1,11 @@
 .em-l-grid--2up .em-l-grid__item_left {
     width: 40%;
+    position: fixed;
 }
 
 .em-l-grid--2up .em-l-grid__item_right {
     width: 60%;
+    margin-left: 40%;
 }
 
 .em-c-btn_filter {
