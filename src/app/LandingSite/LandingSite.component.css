@@ -81,7 +81,7 @@
     background-color: rgb(255, 255, 255);
     position: relative;
     width: 60%;
-    margin-top: -120px;
+    margin-top: -20px;
     margin-left: 20%;
     margin-bottom: 3%;
     /* left: 20%; */
@@ -175,6 +175,7 @@
 /* The circles or bullets and indicators */
 
 .dots {
+    z-index: 2;
     cursor: pointer;
     height: 16px;
     width: 16px;

@@ -181,19 +181,19 @@
         <div class="em-l-container-right">
             <div style="width: 93%;background-color: rgb(122, 0, 0);color: white;padding:1%; border-radius:5px">
                 <div style="border-radius:5px; border-color: white; border-style: solid;padding:1%;">
-                    <H3 style="text-align: center">Quarter LUCKY DRAW</H3>
+                    <H3 style="text-align: center">Quarterly Lucky Draw</H3>
 
                 </div>
             </div>
 
             <!-- <p class="em-c-media-block__desc">Valid until: {{filterItemsOfGacha('yes')[0].value.ValidUntil}}</p> -->
-            <p style="padding-top: 1%;">Lucky draw will be held at the end of every quarter. The more tickets you redeem, the higher the chance of winning.</p>
-            <P>The last day to redeem is {{filterItemsOfGacha('yes')[0].value.ValidUntil}}. And the winner will be announce on 1 April 2022</P>
+            <p style="padding-top: 1%;">The more tickets you redeem, the higher the chance of winning.</p>
+            <P>Q1 redemption deadline: {{filterItemsOfGacha('yes')[0].value.ValidUntil}}. Lucky Draw announcement: TBD</P>
             <div class="em-c-icon-card-list em-l-grid em-l-grid--3up ">
                 <div class="em-c-icon-card-list__item em-l-grid__item" [ngStyle]="{'background-image': 'url('+LuckyDrawBG+')'}" style="background-repeat: no-repeat; background-position: center;background-size: 96% 99%; margin-right: 2%; min-height:400px; width: 30%;"
                     *ngFor="let prize of filterItemsOfGacha('yes')">
 
-                    <div class="em-c-card " *ngIf="prize.value.IsGacha == 'yes'" style="border-style: hidden; background-color:rgba(255, 255, 255, 0);">
+                    <div class="em-c-card" *ngIf="prize.value.IsGacha == 'yes'" style="border-style: hidden; background-color:rgba(255, 255, 255, 0);">
                         <div class="em-c-card__body" style="background-color:rgba(255, 255, 255, 0);">
                             <div class="em-c-media-block__media" style="margin: auto; padding-top:10%; height: 200px; width:auto">
                                 <img src={{prize.PictureUrl}} alt="Alt Text" class="em-c-media-block__img" />
@@ -249,11 +249,17 @@
             </div>
             <!-- end em-l-grid__item -->
             <br>
-            <H3>Rewards</H3>
+            <div style="width: 93%;background-color: rgb(122, 0, 0);color: white;padding:1%; border-radius:5px">
+                <div style="border-radius:5px; border-color: white; border-style: solid;padding:1%;">
+                    <H3 style="text-align: center">Rewards</H3>
 
+                </div>
+            </div>
+            <!-- <H3>Rewards</H3> -->
+            <p style="padding-top: 1%;">Not feeling luck? Collect enough EMCoins and redeem these items immediately!</p>
             <ul class="em-c-icon-card-list em-l-grid em-l-grid--2up ">
 
-                <li class="em-c-icon-card-list__item em-l-grid__item" *ngFor="let prize of filterItemsOfGacha('No')">
+                <li class="em-c-icon-card-list__item em-l-grid__item" *ngFor="let prize of sortItemPrice()">
 
                     <div class="em-c-card " *ngIf="prize.value.IsGacha != 'yes'">
                         <div class="em-c-card__body">

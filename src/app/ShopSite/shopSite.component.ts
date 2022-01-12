@@ -30,7 +30,7 @@ export class ShopSiteComponent implements OnInit {
   userProfile: any = {}
   imagePath = ""
   coinImagePath = ""
-  LuckyDrawBG= this.url + "Picture%20Hub/Group%20102.svg"
+  LuckyDrawBG = this.url + "Picture%20Hub/Group%20102.svg"
   confirmationMessage = ""
   confirmBtn = false
   cancelBtn = false
@@ -45,12 +45,12 @@ export class ShopSiteComponent implements OnInit {
   loading = true
 
   amountsubmit = <HTMLInputElement>document.getElementById('ItemAmount')
-  calculator:number = 1 
-
-  
+  calculator: number = 1
 
 
-  onKeyUp(){
+
+
+  onKeyUp() {
     let amount1 = (<HTMLInputElement>document.getElementById('ItemAmount')).value
     this.calculator = parseInt(amount1)
     // alert(this.calculator)
@@ -80,8 +80,24 @@ export class ShopSiteComponent implements OnInit {
     })
   }
   filterItemsOfGacha(gacha: string) {
+
     return this.prizeList.filter(x => x.value.IsGacha == gacha);
   }
+  sortItemPrice() {
+    return this.filterItemsOfGacha('No').sort(function (a, b) {
+      if (a.value.Price > b.value.Price) {
+        return -1;
+      }
+      else if (b.value.Price > a.value.Price) {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+    })
+  }
+
+  
   checkScore() {
     this.data.currentUserScore.subscribe(message => {
       this.userScore = message
@@ -145,10 +161,10 @@ export class ShopSiteComponent implements OnInit {
             // alert("This will take around 5 secconds to check your Transaction details")
             this.loading = true
             setTimeout(() => {
-            this.data.openAlert()
+              this.data.openAlert()
               this.data.confirmationMessage = "You have successfully redeem lucky draw. Good luck on Lucky draw event day";
               this.loading = false
-              this.data.getUserScore()              
+              this.data.getUserScore()
             }, 5000)
           })
         }
@@ -181,11 +197,11 @@ export class ShopSiteComponent implements OnInit {
             // this.data.confirmationMessage = "This will take around 5 secconds to check your Transaction details";
             this.loading = true
             setTimeout(() => {
-            this.data.openAlert()
+              this.data.openAlert()
 
               this.data.confirmationMessage = "redeem success Admin will contact you weekly for your rewards.";
               this.loading = false
-              this.data.getUserScore()              
+              this.data.getUserScore()
 
             }, 5000)
           })
@@ -200,7 +216,7 @@ export class ShopSiteComponent implements OnInit {
     }
   }
 
-  
+
 
   setWaitmessage() {
     this.loading = false
@@ -219,7 +235,7 @@ export class ShopSiteComponent implements OnInit {
   openConfirmationGacha() {
     <HTMLInputElement><unknown>document.getElementById('comfirmation_gacha')?.classList.remove("em-is-closed")
   }
-  
+
 
   confirmBtnpress() {
     this.confirmBtn = true

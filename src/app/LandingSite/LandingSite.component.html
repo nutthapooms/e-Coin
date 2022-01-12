@@ -2,11 +2,11 @@
 
 
     <div class="Containers fade">
-        <img src={{firstBanner}} style=" width: 100%;height: 78vh;" />
+        <img src={{firstBanner}} style=" width: 100%;height: 90vh;" />
         <!-- <img src="https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/Picture%20Hub/Banner1.png" style=" width: 100%;height: 78vh;" /> -->
     </div>
     <div class="Containers fade" *ngFor="let banner of Banner">
-        <img src={{banner.PictureUrl}} style=" width: 100%; height: 78vh;" />
+        <img src={{banner.PictureUrl}} style=" width: 100%; height: 90vh;" />
     </div>
 
     <a class="Back " (click)="plusSlides(-1) ">&#10094;</a>
@@ -15,10 +15,10 @@
 <br>
 
 <!-- The circles/dots -->
-<div style="text-align:center ">
+<div style="text-align:center " style="margin-top: -100px;">
     <span class="dots " (click)="currentSlide(1) "></span>
     <span *ngFor="let banner of Banner; index as i " class="dots " (click)="currentSlide(1) "></span>
-    <!-- <span class="dots " (click)="currentSlide(3) "></span> -->
+    <span class="dots " (click)="currentSlide(3) "></span>
 </div>
 
 
