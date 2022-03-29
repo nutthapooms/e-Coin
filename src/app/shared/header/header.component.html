@@ -30,15 +30,22 @@
                             </a>
                         </li>
                         <li class="">
-                            <a [routerLink]="'/Site-Info'" [innerHTML]="TabName[3].Title" *ngIf="TabName[3].Status == 'Active'" class="em-c-primary-nav__link " [routerLinkActive]="'em-is-current'">
-                                About Us
-                            </a>
-                        </li>
-                        <li class="">
                             <a [routerLink]="'/Leader-Board'" [innerHTML]="TabName[4].Title" *ngIf="TabName[4].Status == 'Active'" class="em-c-primary-nav__link " [routerLinkActive]="'em-is-current'">
                                 LeaderBoard
                             </a>
                         </li>
+                        <li class="">
+                            <a [routerLink]="'/Quiz'" [innerHTML]="TabName[12].Title" *ngIf="TabName[12].Status == 'Active'" class="em-c-primary-nav__link " [routerLinkActive]="'em-is-current'">
+                                Game
+                            </a>
+                        </li>
+                        <li class="">
+                            <a [routerLink]="'/Site-Info'" [innerHTML]="TabName[3].Title" *ngIf="TabName[3].Status == 'Active'" class="em-c-primary-nav__link " [routerLinkActive]="'em-is-current'">
+                                About Us
+                            </a>
+                        </li>
+
+
                         <!-- end em-c-nav__list__item -->
 
                         <!-- end em-c-nav__list__item -->
@@ -56,7 +63,7 @@
                     <ul id="profileSection " class="em-c-primary-nav__list">
                         <li class="em-c-primary-nav__item">
                             <div>
-                                <img id="ProfileImage" class="em-c-media-block__img" alt="">
+                                <img id="ProfileImage" class="em-c-media-block__img" (error)="onImgError($event)" alt="" [alt]='imgErrStatus'>
                             </div>
                         </li>
                         <li class="em-c-primary-nav__item">

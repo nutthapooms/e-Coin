@@ -188,7 +188,7 @@
 
             <!-- <p class="em-c-media-block__desc">Valid until: {{filterItemsOfGacha('yes')[0].value.ValidUntil}}</p> -->
             <p style="padding-top: 1%;">The more tickets you redeem, the higher the chance of winning.</p>
-            <P>Q1 redemption deadline: {{filterItemsOfGacha('yes')[0].value.ValidUntil}}. Lucky Draw announcement: TBD</P>
+            <p>{{message}}</p>
             <div class="em-c-icon-card-list em-l-grid em-l-grid--3up ">
                 <div class="em-c-icon-card-list__item em-l-grid__item" [ngStyle]="{'background-image': 'url('+LuckyDrawBG+')'}" style="background-repeat: no-repeat; background-position: center;background-size: 96% 99%; margin-right: 2%; min-height:400px; width: 30%;"
                     *ngFor="let prize of filterItemsOfGacha('yes')">
@@ -234,7 +234,10 @@
                                 </td>
                                 <td>
                             </table>
-                            <button class="em-c-btn em-c-btn_card_gacha" (click)="chooseItem(prize.value.Title,prize.value.Price,prize.value.IsGacha,prize)">
+                            <button class="em-c-btn em-c-btn_card_gacha" *ngIf="prize.value.AmountLeft!=0" (click)="chooseItem(prize.value.Title,prize.value.Price,prize.value.IsGacha,prize)">
+                                <span class="em-c-btn__text">Redeem</span>
+                            </button>
+                            <button class="em-c-btn em-c-btn_card_gacha em-c-btn--disabled" *ngIf="prize.value.AmountLeft==0">
                                 <span class="em-c-btn__text">Redeem</span>
                             </button>
                             <!-- </td>

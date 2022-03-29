@@ -107,11 +107,11 @@ export class SiteInfoComponent implements OnInit {
         this.data.currentUserScore.subscribe(message => {
             this.userScore = message
           })
-        this.data.currentLeaderBoard.subscribe(message => this.leaderBoard = message)
-        this.data.currentMyRank.subscribe(message => {
-            this.myRank = message;
-            this.loading = false
-        })
+        // this.data.currentLeaderBoard.subscribe(message => this.leaderBoard = message)
+        // this.data.currentMyRank.subscribe(message => {
+        //     this.myRank = message;
+        //     this.loading = false
+        // })
 
     }
     changeHowto(indicator : number){

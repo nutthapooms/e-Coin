@@ -8,6 +8,7 @@ import { MyRoomComponent } from './MyRoom/myRoom.component';
 import { ChallengeFormComponent } from './challengeForm/challengeForm.component';
 import { ShopSiteComponent } from './ShopSite/shopSite.component';
 import { SiteInfoComponent } from './SiteInfo/SiteInfo.component';
+import { QuizComponent } from './Quiz/Quiz.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'challenge-Info', component: challengeInfoComponent},
   { path: 'Site-Info', component: SiteInfoComponent},
   { path: 'Challenge-Form', component: ChallengeFormComponent},
+  { path: 'Quiz', component: QuizComponent},
   { path: '**', component: LoadingPageComponent }
 ];
 

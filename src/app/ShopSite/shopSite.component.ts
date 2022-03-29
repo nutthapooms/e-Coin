@@ -41,7 +41,7 @@ export class ShopSiteComponent implements OnInit {
   temp_picture_url = ""
   temp_description = ""
   temp_prize: any = { value: { Title: "", Description: "", ValidUntil: "" } }
-
+  message = ""
   loading = true
 
   amountsubmit = <HTMLInputElement>document.getElementById('ItemAmount')
@@ -52,7 +52,13 @@ export class ShopSiteComponent implements OnInit {
 
   onKeyUp() {
     let amount1 = (<HTMLInputElement>document.getElementById('ItemAmount')).value
-    this.calculator = parseInt(amount1)
+    if(isNaN(parseInt(amount1))){
+      this.calculator = 0
+    }
+    else{
+      this.calculator = parseInt(amount1)
+
+    }
     // alert(this.calculator)
   }
 
@@ -63,11 +69,14 @@ export class ShopSiteComponent implements OnInit {
     }).subscribe(data => {
       this.imagePath = this.url + "Picture%20Hub/" + data.d.results[2].Picture
       this.coinImagePath = this.url + "Picture%20Hub/" + data.d.results[7].Picture
+      this.message = data.d.results[2].Message
     })
   }
 
 
   getPrizeDetail() {
+    this.prizeList = []
+
     this.http.get<any>(this.url + this.listReqURL + "PrizeList", {
       responseType: 'json', withCredentials: true
     }).subscribe(data => {
@@ -97,7 +106,7 @@ export class ShopSiteComponent implements OnInit {
     })
   }
 
-  
+
   checkScore() {
     this.data.currentUserScore.subscribe(message => {
       this.userScore = message
@@ -156,6 +165,7 @@ export class ShopSiteComponent implements OnInit {
             JSON.stringify(this.transactionInfo)
             , { withCredentials: true }
           ).subscribe(data => {
+            this.transactionInfo = { EventOrPrice: "", Operation: "", IsGacha: "", Amount: 1 }
             // this.data.confirmationMessage = "This will take around 5 secconds to check your Transaction details";
             // this.data.openAlert()
             // alert("This will take around 5 secconds to check your Transaction details")
@@ -165,6 +175,7 @@ export class ShopSiteComponent implements OnInit {
               this.data.confirmationMessage = "You have successfully redeem lucky draw. Good luck on Lucky draw event day";
               this.loading = false
               this.data.getUserScore()
+              this.getPrizeDetail()
             }, 5000)
           })
         }
@@ -194,6 +205,8 @@ export class ShopSiteComponent implements OnInit {
             JSON.stringify(this.transactionInfo)
             , { withCredentials: true }
           ).subscribe(data => {
+            this.transactionInfo = { EventOrPrice: "", Operation: "", IsGacha: "", Amount: 1 }
+
             // this.data.confirmationMessage = "This will take around 5 secconds to check your Transaction details";
             this.loading = true
             setTimeout(() => {
@@ -202,6 +215,8 @@ export class ShopSiteComponent implements OnInit {
               this.data.confirmationMessage = "redeem success Admin will contact you weekly for your rewards.";
               this.loading = false
               this.data.getUserScore()
+              this.getPrizeDetail()
+
 
             }, 5000)
           })

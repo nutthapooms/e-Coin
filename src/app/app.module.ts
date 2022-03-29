@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import * as CryptoJS from 'crypto-js';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,7 @@ import { LoadingPageComponent } from './loadingPage/loadingPage.component';
 import { challengeInfoComponent } from './challengeInfo/challengeInfo.component';
 import { ChallengeFormComponent } from './challengeForm/challengeForm.component';
 import { SiteInfoComponent } from './SiteInfo/SiteInfo.component';
+import { QuizComponent } from './Quiz/Quiz.component';
 import {HTTP_INTERCEPTORS } from '@angular/common/http'
 import { DataService} from './data.service'
 import { FormsModule } from '@angular/forms';
@@ -25,6 +26,7 @@ const routes: Routes =[
   { path: '#/Landing-site', component: LandingSiteComponent},
   { path: '#/Leader-Board', component: LeaderBoardComponent},
   { path: '#/My-Room', component: MyRoomComponent},
+  { path: '#/Quiz', component: QuizComponent},
   { path: '#/Shop-Site', component: ShopSiteComponent},
   { path: '#/challenge-Info', component: challengeInfoComponent},
   { path: '#/Challenge-Form', component: ChallengeFormComponent},
@@ -37,6 +39,7 @@ const routes: Routes =[
     LandingSiteComponent,
     HeaderComponent,
     LeaderBoardComponent,
+    QuizComponent,
     SiteInfoComponent,
     MyRoomComponent,
     ShopSiteComponent,
@@ -48,7 +51,7 @@ const routes: Routes =[
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
+    HttpClientModule
     // RouterModule.forRoot(routes, {useHash :true})
   ],
   providers: [

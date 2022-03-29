@@ -31,15 +31,15 @@ export class LoadingPageComponent {
 
  
   ngOnInit() {
-    this.transactionInfo.EventOrPrice = "CheckIn"
-    this.transactionInfo.Operation = "CheckIn"
-    // this.transactionInfo.Score = 0
-    this.http.post(this.url + this.listReqURL + "Transaction",
-      JSON.stringify(this.transactionInfo)
-      , { withCredentials: true }
-    ).subscribe(data1 => {
+    // this.transactionInfo.EventOrPrice = "CheckIn"
+    // this.transactionInfo.Operation = "CheckIn"
+    // // this.transactionInfo.Score = 0
+    // this.http.post(this.url + this.listReqURL + "Transaction",
+    //   JSON.stringify(this.transactionInfo)
+    //   , { withCredentials: true }
+    // ).subscribe(data1 => {
 
-    })
+    // })
     this.data.currentReturnLocation.subscribe(message=>{
       setTimeout(()=>{this.routing.navigate([message])},500)
     })

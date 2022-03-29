@@ -20,10 +20,11 @@ export class LeaderBoardComponent implements OnInit {
     ) {
 
     }
+    nametemp = ["surname","firstname"]
     leaderBoard: any[] = []
     url = this.data.dataUrl;
     listReqURL = "_vti_bin/ListData.svc/"
-    myRank = -1
+    myRank = 0
     userScore: any = []
 
     imagePath = this.data.dataUrl + "Picture%20Hub/Winners-pana.svg"
@@ -33,27 +34,37 @@ export class LeaderBoardComponent implements OnInit {
     CodeName = ""
     CoinsName = ""
 
-    updateCoinCodeName(){
-        this.data.currentCoinsName.subscribe(data =>{
+    updateCoinCodeName() {
+        this.data.currentCoinsName.subscribe(data => {
             this.CoinsName = data;
         })
-        this.data.currentCodeName.subscribe(data =>{
+        this.data.currentCodeName.subscribe(data => {
             this.CodeName = data;
         })
-        
+
+    }
+    nameCensor(name:string){
+        name = name + ''
+        let surname = name.substring(name.indexOf(',') + 1); 
+       return name.charAt(0)+"****, "+name.substring(name.indexOf(',') + 2).charAt(0)+"****"
     }
     
 
+
     ngOnInit() {
+        this.data.getLeaderBaord()
         this.updateCoinCodeName()
         this.data.currentUserScore.subscribe(message => {
             this.userScore = message
-          })
-        this.data.currentLeaderBoard.subscribe(message => this.leaderBoard = message)
-        this.data.currentMyRank.subscribe(message => {
-            this.myRank = message;
-            this.loading = false
         })
+        // this.data.currentMyRank.subscribe(message => {
+        //     this.myRank = message
+        //   })
+        // this.data.currentLeaderBoard.subscribe(message => this.leaderBoard = message)
+        // this.data.currentMyRank.subscribe(message => {
+        //     this.myRank = message;
+        //     this.loading = false
+        // })
 
     }
     currentLocation() {

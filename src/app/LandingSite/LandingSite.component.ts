@@ -115,61 +115,12 @@ export class LandingSiteComponent implements OnInit {
 
     getBoothDetail() {
         this.data.loading = true
-        this.Challenges = [];
-        let AllEventBtn = <any>document.getElementById('AllEventsBtn');
-        let UpcomingEventBtn = <any>document.getElementById('UpcomingBtn');
-        // AllEventBtn.style.cssText = 'border-bottom : 2px solid currentColor; border-radius: 0px;'
-        // UpcomingEventBtn.style.cssText = 'border-bottom : hidden;'
-
-        this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable' and Display ne 'Hide')", {
-            responseType: 'json'
-            , withCredentials: true
-        }).subscribe(data => {
-            this.data.loading = false
-
-            for (let index in data.d.results) {
-                let EventDate = data.d.results[index].EventDate.replace('/Date(', '')
-                data.d.results[index].EventDate = new Date(parseInt(EventDate.replace(')/', ''))).toDateString()
-                // data.d.results[index].EventDate = new Date(parseInt(EventDate.replace(')/', ''))).toString()
-
-                this.Challenges.push({ value: data.d.results[index], PictureUrl: this.data.dataUrl + "Picture%20Hub/" + data.d.results[index].Picture });
-                // this.Challenges.push({ value: data.d.results[index], PictureUrl: this.data.dataUrl + "Picture%20Hub/" + data.d.results[index].Picture, creator2: data2.d.Email });
-
-                // })
-            };
-            // console.log(this.Challenges)
-        })
-    }
-    getPastBoothDetail() {
-        this.data.loading = true
-        this.Challenges = []
-        this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable' and Display ne 'Hide')", {
-            responseType: 'json'
-            , withCredentials: true
-        }).subscribe(data => {
-            for (let index in data.d.results) {
-                this.data.loading = false
-
-                let EventDate = data.d.results[index].EventDate.replace('/Date(', '')
-                data.d.results[index].EventDate = new Date(parseInt(EventDate.replace(')/', ''))).toDateString()
-                if (new Date() > new Date(parseInt(EventDate.replace(')/', '')))) {
-                    this.Challenges.push({ value: data.d.results[index], PictureUrl: this.data.dataUrl + "Picture%20Hub/" + data.d.results[index].Picture });
-
-                }
-                // this.routing.navigate(['/Landing-site'])
-                // })
-            }
-            // console.log(this.Challenges)
-        })
-    }
-    getFutureBoothDetail() {
-        this.data.loading = true
         this.Challenges = []
         let AllEventBtn = <any>document.getElementById('AllEventsBtn');
         let UpcomingEventBtn = <any>document.getElementById('UpcomingBtn');
-        // UpcomingEventBtn.style.cssText = 'border-bottom : 2px solid currentColor; border-radius: 0px;'
-        // AllEventBtn.style.cssText = 'border-bottom : hidden;'
-        this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable' and Display ne 'Hide')", {
+        UpcomingEventBtn.style.cssText = 'border-bottom : hidden;'
+        AllEventBtn.style.cssText = 'border-bottom : 2px solid currentColor; border-radius: 0px;'
+        this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetailsPublic" + "/?$filter=(Active ne 'Disable' and Display ne 'Hide')&$orderby=EventDate%20desc", {
         // this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable')", {
             responseType: 'json'
             , withCredentials: true
@@ -179,8 +130,62 @@ export class LandingSiteComponent implements OnInit {
             for (let index in data.d.results) {
 
                 let EventDate = data.d.results[index].EventDate.replace('/Date(', '')
-                data.d.results[index].EventDate = new Date(parseInt(EventDate.replace(')/', ''))).toDateString()
-                if (new Date() < new Date(parseInt(EventDate.replace(')/', '')))) {
+                data.d.results[index].EventDate = new Date(parseInt(EventDate.replace(')/', ''))).toDateString();
+                // if (new Date() < new Date(parseInt(EventDate.replace(')/', '')))) {
+                    this.Challenges.push({ value: data.d.results[index], PictureUrl: this.data.dataUrl + "Picture%20Hub/" + data.d.results[index].Picture });
+
+                // }
+            }
+
+        })
+    }
+    getPastBoothDetail() {
+        this.data.loading = true
+        this.Challenges = []
+        let AllEventBtn = <any>document.getElementById('AllEventsBtn');
+        let UpcomingEventBtn = <any>document.getElementById('UpcomingBtn');
+        // UpcomingEventBtn.style.cssText = 'border-bottom : 2px solid currentColor; border-radius: 0px;'
+        // AllEventBtn.style.cssText = 'border-bottom : hidden;'
+        this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetailsPublic" + "/?$filter=(Active ne 'Disable' and Display ne 'Hide')", {
+        // this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable')", {
+            responseType: 'json'
+            , withCredentials: true
+        }).subscribe(data => {
+            this.data.loading = false
+
+            for (let index in data.d.results) {
+
+                let EventDate = data.d.results[index].EventDate.replace('/Date(', '')
+                data.d.results[index].EventDate = new Date(parseInt(EventDate.replace(')/', ''))).toDateString();
+                if (new Date() > new Date(parseInt(EventDate.replace(')/', '')))) {
+                    this.Challenges.push({ value: data.d.results[index], PictureUrl: this.data.dataUrl + "Picture%20Hub/" + data.d.results[index].Picture });
+
+                }
+            }
+
+        })
+    }
+    getFutureBoothDetail() {
+        this.data.loading = true
+        this.Challenges = []
+        let AllEventBtn = <any>document.getElementById('AllEventsBtn');
+        let UpcomingEventBtn = <any>document.getElementById('UpcomingBtn');
+        UpcomingEventBtn.style.cssText = 'border-bottom : 2px solid currentColor; border-radius: 0px;'
+        AllEventBtn.style.cssText = 'border-bottom : hidden;'
+        this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetailsPublic" + "/?$filter=(Active ne 'Disable' and Display ne 'Hide')&$orderby=EventDate%20desc", {
+        // this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable')", {
+            responseType: 'json'
+            , withCredentials: true
+        }).subscribe(data => {
+            this.data.loading = false
+            let tempDate = new Date()
+            tempDate.setDate(new Date().getDate()-7)
+
+            for (let index in data.d.results) {
+
+                let EventDate = data.d.results[index].EventDate.replace('/Date(', '')
+                data.d.results[index].EventDate = new Date(parseInt(EventDate.replace(')/', ''))).toDateString();
+                if (tempDate < new Date(parseInt(EventDate.replace(')/', '')))) {
                     this.Challenges.push({ value: data.d.results[index], PictureUrl: this.data.dataUrl + "Picture%20Hub/" + data.d.results[index].Picture });
 
                 }
@@ -202,6 +207,8 @@ export class LandingSiteComponent implements OnInit {
             if (data.d.results.length > 0) {
                 this.adminCheck = true
                 for (let index in data.d.results) {
+                    data.d.results[index].EventCode = data.d.results[index].EventCode;
+                    // data.d.results[index].EventCode = this.data.decryptUsingAES256(data.d.results[index].EventCode);
                     this.ChallengesAdmin.push({ value: data.d.results[index], PictureUrl: this.data.dataUrl + "Picture%20Hub/" + data.d.results[index].Picture });
                 }
             }
@@ -216,7 +223,7 @@ export class LandingSiteComponent implements OnInit {
     }
 
     getDetail(challengesdetail: any) {
-        console.log(challengesdetail)
+        // console.log(challengesdetail)
         this.data.changeChallengeDetail(challengesdetail);
         this.http.get<any>(this.data.dataUrl + this.listReqURL + "Transaction" + "/?$filter=(EventOrPrice eq '" + challengesdetail.value.EventCode + "')",
             {
@@ -226,6 +233,8 @@ export class LandingSiteComponent implements OnInit {
                 for (let key in data.d.results) {
                     let createdDate = data.d.results[key].Created.replace('/Date(', '')
                     data.d.results[key].Created = new Date(parseInt(createdDate.replace(')/', ''))).toString()
+                    data.d.results[key].EventCode = data.d.results[key].EventCode;
+                    // data.d.results[key].EventCode = this.data.decryptUsingAES256(data.d.results[key].EventCode);
                     this.http.get<any>(this.data.dataUrl + "_api/web/getuserbyid(" + data.d.results[key].CreatedById + ")", {
                         responseType: 'json', withCredentials: true
                     }).subscribe(data2 => {
@@ -331,8 +340,8 @@ export class LandingSiteComponent implements OnInit {
 
 
     ngOnInit() {
-        this.getFutureBoothDetail()
-        // this.getBoothDetail()
+        // this.getFutureBoothDetail()
+        this.getBoothDetail()
 
         // this.updateCoinCodeName()
         this.getTabName()

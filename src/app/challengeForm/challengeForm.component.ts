@@ -16,8 +16,8 @@ export class ChallengeFormComponent implements OnInit {
         private data: DataService,
         private routing: Router
     ) { }
-    eventDetail = { Title: "", Description: "", EventCode: "", Score: "", RegisterLink: "", Active: "Enable", CodeLimit: 0, Picture: "defaultEvent.png", Display: "Unhide", EventDate: new Date() }
-
+    eventDetail = { Title: "", Description: "", EventCode: "", Score: "", RegisterLink: "", Active: "Disable", CodeLimit: 0, Picture: "defaultEvent.png", Display: "Hide", EventDate: new Date() }
+    publicEvent?: any;
     url = this.data.dataUrl;
     listReqURL = "_vti_bin/ListData.svc/"
 
@@ -30,10 +30,10 @@ export class ChallengeFormComponent implements OnInit {
         this.eventDetail.Score = (<HTMLInputElement>document.getElementById('codeEarning')).value
         this.eventDetail.RegisterLink = (<HTMLInputElement>document.getElementById('eventUrl')).value
         this.eventDetail.CodeLimit = parseInt((<HTMLInputElement>document.getElementById('codeLimit')).value)
-        this.eventDetail.EventDate = new Date(new Date((<HTMLInputElement>document.getElementById('eventDate')).value).getTime() + (71000 * 60 * 60))
-        let temp_date = new Date(new Date((<HTMLInputElement>document.getElementById('eventDate')).value).getTime() + (71000 * 60 * 60)).toString()
+        this.eventDetail.EventDate = new Date(new Date((<HTMLInputElement>document.getElementById('eventDate')).value).getTime() + (24000 * 60 * 60))
+        let temp_date = new Date(new Date((<HTMLInputElement>document.getElementById('eventDate')).value).getTime() + (24000 * 60 * 60)).toString()
         // alert(eventCode.length && this.eventDetail.Title.length && this.eventDetail.Description.length && temp_date.length && this.eventDetail.RegisterLink.length && this.eventDetail.CodeLimit && this.eventDetail.EventCode.length) 
-        if ((eventCode.length && this.eventDetail.Title.length && this.eventDetail.Description.length && temp_date.length  && this.eventDetail.CodeLimit && this.eventDetail.EventCode.length)==0) {
+        if ((eventCode.length && this.eventDetail.Title.length && this.eventDetail.Description.length && temp_date.length && this.eventDetail.CodeLimit && this.eventDetail.EventCode.length) == 0) {
             alert('you missed some fill')
         }
         else {
@@ -46,6 +46,12 @@ export class ChallengeFormComponent implements OnInit {
                         JSON.stringify(this.eventDetail)
                         , { withCredentials: true }
                     ).subscribe(data1 => {
+                        // this.publicEvent = this.eventDetail;
+                        // delete this.publicEvent.EventCode;
+                        // this.http.post(this.url + this.listReqURL + "ChallengesDetailsPublic",
+                        //     JSON.stringify(this.publicEvent)
+                        //     , { withCredentials: true }
+                        // ).subscribe(dataCode2 => { })
                         alert("Submit successful")
                         this.routing.navigate(['/Landing-site'])
 
@@ -60,7 +66,7 @@ export class ChallengeFormComponent implements OnInit {
 
 
 
-      }
+    }
 
     return() {
         this.routing.navigate(['/Landing-site'])

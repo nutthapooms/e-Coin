@@ -81,7 +81,7 @@ export class MyRoomComponent implements OnInit {
     this.http.get<any>(this.url + "_api/sp.userprofiles.peoplemanager/getmyproperties", {
       responseType: 'json', withCredentials: true
     }).subscribe(data1 => {
-      this.http.get<any>(this.url + this.listReqURL + "Transaction" + "/?$filter=(CreatedBy/WorkEmail eq '" + data1.d.Email + "' and EventOrPrice ne 'create user' and EventOrPrice ne 'CheckIn')", {
+      this.http.get<any>(this.url + this.listReqURL + "Transaction" + "/?$filter=(CreatedBy/WorkEmail eq '" + data1.d.Email + "' and EventOrPrice ne 'create user' and EventOrPrice ne 'CheckIn' and Status ne 'Duplicate' and Status ne 'NotFound')", {
         responseType: 'json'
         // , withCredentials: true
       }).subscribe(data => {
@@ -91,6 +91,10 @@ export class MyRoomComponent implements OnInit {
         for (let key in data.d.results) {
           let CreateDate = data.d.results[key].Created.replace('/Date(', '')
           data.d.results[key].Created = new Date(parseInt(CreateDate.replace(')/', ''))).toDateString()
+          // if(data.d.results[key].Operation == 'earn'){
+          //   data.d.results[key].EventOrPrice = this.data.decryptUsingAES256(data.d.results[key].EventOrPrice);
+          // }
+
           if (data.d.results[key].Operation == 'reduction') {
             keys.push(data.d.results[key])
             keys2.push(data.d.results[key])
@@ -117,7 +121,6 @@ export class MyRoomComponent implements OnInit {
     this.data.currentMyTransactionHistory.subscribe(message => this.transactionsHistory = message)
     this.data.currentMyTransaction.subscribe(message => {
       this.transactions = message
-      console.log(message)
     })
     this.data.currentUserScore.subscribe(message => this.userScore = message)
 

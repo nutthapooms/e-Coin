@@ -1,3 +1,6 @@
+<br>
+<br>
+
 <div class="em-l-grid em-l-grid--2up ">
     <div class="em-l-grid__item em-l-grid__item_left ">
         <h2 class="PageTitle">Leaderboard</h2>
@@ -14,21 +17,21 @@
                     Your current balance:
                 </h3>
                 <div>
-                    {{CoinsName}} : {{this.userScore[0].value.Score}}
+                    {{this.userScore[0].value.Score}} {{data.CoinsName}}
                 </div>
                 <!-- <div>
-                    Lucky Ticket : {{this.userScore[0].value.Gachapon}}
-                  </div> -->
+                Lucky Ticket : {{this.userScore[0].value.Gachapon}}
+              </div> -->
             </label>
             <div class="em-c-field__body">
                 <tr>
                     <td>
                         <form>
-                            <input type="" id="EventCodeInput" class="em-c-input em-js-input" placeholder="VCODE" value="" />
+                            <input type="" id="EventCodeInput" class="addShadow em-c-input em-js-input" [placeholder]="data.CodeName" value="" />
                         </form>
                     </td>
                     <td>
-                        <button class="em-c-btn " (click)="data.earn()">
+                        <button class="em-c-btn em-c-btn_filter addShadow" (click)="data.earn()">
                             <span class="em-c-btn__text">Convert</span>
                         </button>
                     </td>
@@ -36,19 +39,16 @@
             </div>
 
 
-            <!-- end em-c-btn -->
-            <!-- end em-c-field__body -->
-            <!-- <div class="em-c-field__note">Vcoins can be earned by redeemping Vcodes. Collect Vcodes by joining the events below!
-              Admin</div> -->
         </div>
     </div>
+
     <!-- end em-l-grid__item -->
     <div class="em-l-grid__item em-l-grid__item_right">
         <div class="em-l-container-right">
 
             <div class="em-c-table-object ">
                 <div class="em-c-table-object__header">
-                    <h3 class="">Top score</h3>
+                    <h3 class="">Top earners</h3>
 
                 </div>
                 <!--end em-c-table-object__header-->
@@ -57,9 +57,11 @@
                         <table class="em-c-table ">
                             <thead class="em-c-table__header">
                                 <tr class="em-c-table__header-row">
-                                    <th scope="col" class="em-c-table__header-cell ">Top Score</th>
+                                    <th scope="col" class="em-c-table__header-cell " style=" padding-left: 40px;">Rank</th>
+
+                                    <th scope="col" class="em-c-table__header-cell ">Name</th>
                                     <!-- <th scope="col" class="em-c-table__header-cell ">Function</th> -->
-                                    <th scope="col" class="em-c-table__header-cell ">{{CoinsName}}</th>
+                                    <th scope="col" class="em-c-table__header-cell ">{{data.CoinsName}}</th>
                                     <!-- <th scope="col" class="em-c-table__header-cell ">Created By</th> -->
 
                                 </tr>
@@ -67,15 +69,35 @@
                             </thead>
                             <!-- end em-c-table__header -->
                             <tbody class="em-c-table__body ">
-                                <tr class="em-c-table__row " *ngFor="let leader of leaderBoard.slice(0, 3); index as i">
-                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
-                                        {{i+1}}. {{leader.value.Name}}
+                                <tr class="em-c-table__row you" *ngFor="let leader of data.LeaderBoard.slice(data.myRank, data.myRank+1);index as j" style="font-weight: 600; border-bottom-width:thin ;border-color: rgb(179, 179, 179);">
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="" style="font-weight: 600; padding-left: 40px;">
+                                        {{j + data.myRank}}
+                                    </td>
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="" style="font-weight: 600;">
+                                        {{leader.Name}}
                                     </td>
                                     <!-- <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
                                         {{leader.value.Function}}
                                     </td> -->
                                     <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
-                                        {{leader.value.Score}}
+                                        {{leader.Score}}
+                                    </td>
+                                    <!-- <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                {{leader.creator2}}
+                            </td> -->
+                                </tr>
+                                <tr style="background-color: white;" class="em-c-table__row " *ngFor="let leader of data.LeaderBoard.slice(0,10); index as i">
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="" style=" padding-left: 40px;">
+                                        {{i+1}} <img style="width: 35px; margin-bottom: -10px;margin-top: -10px;" [src]="this.data.dataUrl + 'Picture%20Hub/crown.png'" *ngIf="i==0">
+                                    </td>
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="" style="vertical-align: auto;">
+                                        {{nameCensor(leader.Name)}}
+                                    </td>
+                                    <!-- <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                        {{leader.value.Function}}
+                                    </td> -->
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                        {{leader.Score}}
                                     </td>
                                     <!-- <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
                                 {{leader.creator2}}
@@ -97,55 +119,7 @@
                     <!--end em-c-table-object__body-inner-->
                 </div>
                 <!--end em-c-table-object__body-->
-                <div class="em-c-table-object__header">
-                    <h3 class="">Your score</h3>
-
-                </div>
-                <div class="em-c-table-object__body addShadow">
-                    <div class="em-c-table-object__body-inner">
-                        <table class="em-c-table ">
-                            <thead class="em-c-table__header">
-                                <tr class="em-c-table__header-row">
-                                    <th scope="col" class="em-c-table__header-cell ">Your score</th>
-                                    <!-- <th scope="col" class="em-c-table__header-cell ">Function</th> -->
-                                    <th scope="col" class="em-c-table__header-cell ">{{CoinsName}}</th>
-                                    <!-- <th scope="col" class="em-c-table__header-cell ">Created By</th> -->
-
-                                </tr>
-                                <!-- em-c-table__header-row -->
-                            </thead>
-                            <!-- end em-c-table__header -->
-                            <tbody class="em-c-table__body ">
-
-                                <tr class="em-c-table__row " *ngFor="let leader of leaderBoard.slice(myRank-1, myRank+2);index as i">
-                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
-                                        {{i+myRank}}. {{leader.value.Name}}
-                                    </td>
-                                    <!-- <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
-                                        {{leader.value.Function}}
-                                    </td> -->
-                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
-                                        {{leader.value.Score}}
-                                    </td>
-                                    <!-- <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
-                                {{leader.creator2}}
-                            </td> -->
-                                </tr>
-                                <!-- end em-c-table__row -->
-
-                                <!-- end em-c-table__row -->
-                            </tbody>
-                            <!-- end em-c-table__body -->
-                            <tfoot class="em-c-table__footer">
-                                <tr class="em-c-table__footer-row">
-                                </tr>
-                            </tfoot>
-                            <!-- end em-c-table__footer -->
-                        </table>
-                        <!--end em-c-table-->
-                    </div>
-                    <!--end em-c-table-object__body-inner-->
-                </div>
+                <!--  -->
                 <!--end em-c-table-object__body-->
             </div>
             <!--end em-c-table-object-->

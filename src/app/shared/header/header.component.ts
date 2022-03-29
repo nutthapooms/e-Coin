@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Directive, Input, HostBinding } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpHandler, HttpRequest } from '@angular/common/http';
 import { DataService } from 'src/app/data.service'
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit {
+
 
   constructor(
     private http: HttpClient,
@@ -37,7 +41,8 @@ export class HeaderComponent implements OnInit {
   userScore: any = []
   TabName: any[] = []
   tooLong = 0
-
+  defaultPicture = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png";
+  imgErrStatus = ""
   // loadingMSG = "Loading"
   // loading: boolean = false
   // confirmationMessage = ""
@@ -49,7 +54,6 @@ export class HeaderComponent implements OnInit {
       responseType: 'json'
       , withCredentials: true
     }).subscribe(data => {
-      console.log(data)
       for (let key in data.d.results) {
         this.TabName.push(data.d.results[key])
         // this.data.changeCodeName('Code');
@@ -66,54 +70,89 @@ export class HeaderComponent implements OnInit {
       responseType: 'json'
       , withCredentials: true
     }).subscribe(data => {
-      console.log(data)
       for (let key in data.d.results) {
         this.TabName.push(data.d.results[key])
       }
     })
   }
 
-  getUser() {
-    (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
 
+  onImgError(event :Event){
+    (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
+   //Do other stuff with the event.target
+   }
+
+  getUser() {
+    (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png";
     this.http.get<any>(this.url + "_api/sp.userprofiles.peoplemanager/getmyproperties", {
       responseType: 'json'
       , withCredentials: true
     }).subscribe(data => {
       // console.log(data.d)
-
-
-
       this.data.changeUser(data.d); //update userprofile
       this.userProfile = data.d;
       this.data.userProfile = data.d;
+      (<HTMLInputElement>document.getElementById('ProfileImage')).src = data.d.PictureUrl;
+      // if (this.userProfile.PictureUrl != null) {
+      //   try {
+      //     (<HTMLInputElement>document.getElementById('ProfileImage')).src = data.d.PictureUrl;
 
-      try {
-        if (this.userProfile.PictureUrl != null) {
-          this.http.get<any>(this.userProfile.PictureUrl, { withCredentials: true }).subscribe(data2 => {
-            // this.http.get<any>(data.d.PictureUrl, { withCredentials: true }).subscribe(data2 => {
-            (<HTMLInputElement>document.getElementById('ProfileImage')).src = data.d.PictureUrl;
-          }, (error) => {
-            console.log('there is an error:' + error.status);
-            if (error.status == '404') {
-              (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
+      //     this.http.get<any>(this.userProfile.PictureUrl, { withCredentials: true }).subscribe(data2 => {
+      //       // this.http.get<any>(data.d.PictureUrl, { withCredentials: true }).subscribe(data2 => {
+      //     }, error => {
+      //       // console.log('there is an error:' + error.status);
+      //       this.imgErrStatus = error.status
+      //       if (error.status == '404') {
 
-            }
-            else {
-              (<HTMLInputElement>document.getElementById('ProfileImage')).src = data.d.PictureUrl;
+      //         (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
 
-            }
-          })
-        }
-        else {
-          (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
+      //       }
+      //       else if (error.status == '200') {
+      //         (<HTMLInputElement>document.getElementById('ProfileImage')).src = data.d.PictureUrl;
 
-        }
-      }
-      catch (e) {
-        (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
+      //       }
+      //       else if (error.status == '401') {
+      //         (<HTMLInputElement>document.getElementById('ProfileImage')).src = data.d.PictureUrl;
 
-      }
+      //       }
+      //       else {
+      //         (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
+
+      //       }
+      //       console.log("status:" + error.status)
+
+      //     })
+
+      //   }
+      //   catch (error: any) {
+      //     if (error.status == '404') {
+
+      //       (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
+
+      //     }
+      //     else if (error.status == '200') {
+      //       (<HTMLInputElement>document.getElementById('ProfileImage')).src = data.d.PictureUrl;
+
+      //     }
+      //     else if (error.status == '401') {
+      //       (<HTMLInputElement>document.getElementById('ProfileImage')).src = data.d.PictureUrl;
+
+      //     }
+      //     else {
+      //       (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
+
+      //     }
+      //     console.log("status:" + error.status)
+
+      //     // (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
+
+      //   }
+      // }
+      // else {
+      //   (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
+      //   console.log("status: null" )
+
+      // }
 
 
     })
@@ -189,7 +228,7 @@ export class HeaderComponent implements OnInit {
       })
     })
   }
- 
+
   closeAlert() {
     <HTMLInputElement><unknown>document.getElementById('Alert_header')?.classList.add("em-is-closed")
   }
@@ -198,41 +237,18 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  
-  getLeaderBaord() {
-    let keys: { value: any; creator2: string; }[] = [];
-    let indexer = []
-    this.http.get<any>(this.url + this.listReqURL + "ContactDetails", {
-      responseType: 'json', withCredentials: true
-    }).subscribe(data => {
-      this.getUser()
-      let index = 0
-      for (let key in data.d.results) {
 
-        this.http.get<any>(this.url + "_api/web/getuserbyid(" + data.d.results[key].CreatedById + ")", {
-          responseType: 'json'
-          , withCredentials: true
-        }).subscribe(data2 => {
-          keys.push({ value: data.d.results[key], creator2: data2.d.Title })
-          keys.sort(this.predicateBy("value", "Score"))
 
-          if (parseInt(key) + 1 == data.d.results.length) {
-            this.data.changeMyRank(keys.findIndex(item => item.value.Name === this.userProfile.DisplayName))
-            this.data.changeLeaderBoard(keys)
-          }
-
-        })
-
-      }
-    })
-  }
 
 
   ngOnInit() {
+
+
     this.userScore = this.data.getUserScore()
     this.getTabName()
     this.getCoinAndCodeName()
     this.getUser()
+
   }
 
 }

@@ -1,0 +1,108 @@
+<br>
+<br>
+<div class="em-l-container">
+    <h2>
+        Quiz
+    </h2>
+
+    <div class="em-l-grid em-l-grid--4up ">
+        <div id="Code" class="em-l-grid__item instructionBlock" *ngFor="let Quiz of Quizes; index as i" (click)="openQuiz(Quiz)">
+            <div *ngIf="checkDone(QuizTracker,i)">
+                <img src={{QuizimagePath+Quiz.Picture}} class="howto_img_done" />
+                <h3 class="howto_title">
+                    Quiz : {{Quiz.QuizNo}} done
+                </h3>
+                <h4>
+                    {{Quiz.Score}} {{data.CoinsName}}
+                </h4>
+            </div>
+            <div *ngIf="!checkDone(QuizTracker,i)">
+                <img src={{QuizimagePath+Quiz.Picture}} class="howto_img" />
+                <h3 class="howto_title">
+                    Quiz : {{Quiz.QuizNo}}
+                </h3>
+                <h4>
+                    {{Quiz.Score}} {{data.CoinsName}}
+                </h4>
+            </div>
+
+        </div>
+
+        <!-- end em-l-grid__item -->
+
+    </div>
+    <!-- end em-l-grid -->
+
+</div>
+<div class="em-c-modal em-js-modal-only em-is-closed" id="QuizBlog">
+    <div class="em-c-modal__window em-js-modal-window ">
+        <div class="em-c-modal__header ">
+            <h3 class="em-c-modal__title ">Quiz {{CurrentQuiz.QuizNo}}</h3>
+            <button class="em-c-btn em-c-btn--bare em-c-modal__close-btn em-js-modal-close-trigger " (click)="closeQuiz() ">
+                <span class="em-c-btn__text ">Close</span>
+            </button>
+            <!-- end em-c-btn -->
+        </div>
+        <!-- end em-c-modal__header -->
+        <!-- <div  class="em-c-modal__body em-c-text-passage em-c-text-passage--small ">
+            
+        </div> -->
+        <div class="em-c-field ">
+            <h4 for="" class="em-c-field__label">{{CurrentQuiz.QuizDesc}}</h4>
+            <div class="em-c-field__body">
+                <ul class="em-c-option-list ">
+                    <li class="em-c-option-list__item em-js-radio-trigger-parent" (click)="AnswerInput('A')">
+                        <label class="em-c-input-group em-c-radio--container" for="radio-1">
+                            <input id="radio-1" type="radio" name="radioname" value="A"
+                                class="em-c-input-group__control em-js-radio-trigger">
+                            <span class="em-c-radio--checkmark"></span>
+                            <span class="em-c-input-group__text">{{CurrentQuiz.A}}</span>
+                        </label>
+                    </li>
+                    <!-- end em-c-radio-list__item -->
+                    <li class="em-c-option-list__item em-js-radio-trigger-parent" (click)="AnswerInput('B')">
+                        <label class="em-c-input-group em-c-radio--container" for="radio-2">
+                            <input id="radio-2" type="radio" name="radioname" value="B"
+                                class="em-c-input-group__control em-js-radio-trigger">
+                            <span class="em-c-radio--checkmark"></span>
+                            <span class="em-c-input-group__text">{{CurrentQuiz.B}}</span>
+                        </label>
+                    </li>
+                    <!-- end em-c-radio-list__item -->
+                    <li class="em-c-option-list__item em-js-radio-trigger-parent" (click)="AnswerInput('C')">
+                        <label class="em-c-input-group em-c-radio--container" for="radio-3">
+                            <input id="radio-3" type="radio" name="radioname" value="C"
+                                class="em-c-input-group__control em-js-radio-trigger">
+                            <span class="em-c-radio--checkmark"></span>
+                            <span class="em-c-input-group__text">{{CurrentQuiz.C}}</span>
+                        </label>
+                    </li>
+                    <!-- end em-c-radio-list__item -->
+                    <li class="em-c-option-list__item em-js-radio-trigger-parent" (click)="AnswerInput('D')">
+                        <label class="em-c-input-group em-c-radio--container" for="radio-4">
+                            <input id="radio-4" type="radio" name="radioname" value="D"
+                                class="em-c-input-group__control em-js-radio-trigger">
+                            <span class="em-c-radio--checkmark"></span>
+                            <span class="em-c-input-group__text">{{CurrentQuiz.D}}</span>
+                        </label>
+                    </li>
+                    <!-- end em-c-radio-list__item -->
+                </ul>
+                <!-- end em-c-option-list -->
+            </div>
+            <!-- end em-c-field__body -->
+            <div class="em-c-field__note">This is a note about the field</div>
+        </div>
+        <!-- end em-c-modal__body -->
+        <div id="confirmationFooter_Default " class="em-c-modal__footer em-c-text-passage em-c-text-passage--small ">
+            <button class="em-c-btn em-c-btn_card " (click)="testInput() " *ngIf="!checkDone(QuizTracker,CurrentQuiz.QuizNo-1)">
+                <span class="em-c-btn__text ">OK</span>
+            </button>
+
+        </div>
+        <!-- end em-c-modal__footer -->
+    </div>
+    <!-- end em-c-modal__window -->
+</div>
+<!-- end em-c-modal -->
+<div class="header_filler">_</div>
