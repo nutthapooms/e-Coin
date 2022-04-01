@@ -10,13 +10,13 @@ import * as CryptoJS from 'crypto-js';
 
 @Injectable()
 export class DataService {
-    // public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
-    public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
+    public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
+    // public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
     // public dataUrl = 'https://ishareteam2.na.xom.com/sites/CHEMGMO18/WAEM/vcoin/ITFairOnline2/'
 
     // public urlLocation = 'http://localhost:4200';
-    // public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
-    public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
+    public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
+    // public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
     // public urlLocation = 'https://ishareteam2.na.xom.com/sites/CHEMGMO18/WAEM/vcoin/ITFairOnline2/package/Code/index.html';
 
     private returnLocation = new BehaviorSubject('/Landing-site');
@@ -28,7 +28,7 @@ export class DataService {
     private UserScore = new BehaviorSubject([{ value: { Score: 0 } }]);
     currentUserScore = this.UserScore.asObservable();
 
-    public LeaderBoard = [{ Name: <any>{},Score:<any>{} }];
+    public LeaderBoard = [{ Name: <any>{},EarnedScore:<any>{} }];
     // currentLeaderBoard = this.LeaderBoard.asObservable();
 
     private langSource = new BehaviorSubject('eng');
@@ -227,7 +227,7 @@ export class DataService {
                             })
                         }
                         else {
-                            // alert("This is your first time on VCoin. Welcome!")
+                            // alert("This is your first time on EMCoin. Welcome!")
                         }
                     })
                     return null
@@ -314,7 +314,7 @@ export class DataService {
         this.loading = true
         let keys: { value: any; creator2: string; }[] = [];
         let indexer = []
-        this.http.get<any>(this.url + this.listReqURL + "ContactDetails" + "?$orderby=Score%20desc,Modified", {
+        this.http.get<any>(this.url + this.listReqURL + "ContactDetails" + "?$orderby=EarnedScore%20desc,Modified", {
             responseType: 'json', withCredentials: true
         }).subscribe(data1 => {
             this.getUser()

@@ -49,7 +49,7 @@ export class SiteInfoComponent implements OnInit {
 
 
     imagePath = this.data.dataUrl + "Picture%20Hub/CoinGroup.svg"
-    Vcoin_img = this.data.dataUrl + "Picture%20Hub/Vcoin.svg"
+    EMcoin_img = this.data.dataUrl + "Picture%20Hub/Vcoin.svg"
     eCode_img = this.data.dataUrl + "Picture%20Hub/eCode.svg"
     Gacha_img = this.data.dataUrl + "Picture%20Hub/Gacha.svg"
     Reward_img = this.data.dataUrl + "Picture%20Hub/Reward.svg"
