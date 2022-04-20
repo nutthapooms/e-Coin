@@ -26,8 +26,8 @@ export class SiteInfoComponent implements OnInit {
     listReqURL = "_vti_bin/ListData.svc/"
     myRank = -1
     userScore: any = []
-    HowTo_Array = ['Code','Coin','Reward','LuckyDraw']
-    
+    HowTo_Array = ['Code', 'Coin', 'Reward', 'LuckyDraw']
+
 
     GetToKnow = ""
     GetToKnowDesc = ""
@@ -37,15 +37,15 @@ export class SiteInfoComponent implements OnInit {
     EnterLD = ""
     HowtoCodes = ""
     HowtoCodesDesc = ""
-    HowtoCoins =""
-    HowtoCoinsDesc =""
+    HowtoCoins = ""
+    HowtoCoinsDesc = ""
     HowtoRewards = ""
     HowtoRewardsDesc = ""
-    HowtoLuckyDraws =""
-    HowtoLuckyDrawsDesc =""
-    ContactUs =""
-    ContactUsDesc =""
-    imagePathArr :any[] = []
+    HowtoLuckyDraws = ""
+    HowtoLuckyDrawsDesc = ""
+    ContactUs = ""
+    ContactUsDesc = ""
+    imagePathArr: any[] = []
 
 
     imagePath = this.data.dataUrl + "Picture%20Hub/CoinGroup.svg"
@@ -62,7 +62,7 @@ export class SiteInfoComponent implements OnInit {
             responseType: 'json'
             , withCredentials: true
         }).subscribe(data => {
-            this.imagePath= this.data.dataUrl + "Picture%20Hub/" + data.d.results[8].Picture
+            this.imagePath = this.data.dataUrl + "Picture%20Hub/" + data.d.results[8].Picture
         })
     }
     getAboutUs() {
@@ -74,15 +74,19 @@ export class SiteInfoComponent implements OnInit {
             for (let key in data.d.results) {
                 temp.push(data.d.results[key])
                 // alert(this.data.dataUrl+"Picture%20Hub/"+data.d.results[key].Picture)
-                this.imagePathArr.push(this.data.dataUrl+"Picture%20Hub/"+data.d.results[key].Picture)
-              }
+                this.imagePathArr.push(this.data.dataUrl + "Picture%20Hub/" + data.d.results[key].Picture)
+            }
             // this.imagePathArr = temp
+            this.EMcoin_img = this.data.dataUrl + "Picture%20Hub/" + temp[1].Picture
+            this.eCode_img = this.data.dataUrl + "Picture%20Hub/" + temp[2].Picture
+            this.Gacha_img = this.data.dataUrl + "Picture%20Hub/" + temp[3].Picture
+            this.Reward_img = this.data.dataUrl + "Picture%20Hub/" + temp[4].Picture
             this.GetToKnow = temp[0].Title
-            this.GetToKnowDesc =temp[0].Description
-            this.GetCodes =temp[1].Title
+            this.GetToKnowDesc = temp[0].Description
+            this.GetCodes = temp[1].Title
             this.CollectCoins = temp[2].Title
             this.RedeemRewards = temp[3].Title
-            this.EnterLD =temp[4].Title
+            this.EnterLD = temp[4].Title
             this.HowtoCodes = temp[5].Title
             this.HowtoCodesDesc = temp[5].Description
             this.HowtoCoins = temp[6].Title
@@ -96,7 +100,7 @@ export class SiteInfoComponent implements OnInit {
 
         })
     }
-    
+
 
     ngOnInit() {
         this.getTabName()
@@ -106,7 +110,7 @@ export class SiteInfoComponent implements OnInit {
 
         this.data.currentUserScore.subscribe(message => {
             this.userScore = message
-          })
+        })
         // this.data.currentLeaderBoard.subscribe(message => this.leaderBoard = message)
         // this.data.currentMyRank.subscribe(message => {
         //     this.myRank = message;
@@ -114,12 +118,12 @@ export class SiteInfoComponent implements OnInit {
         // })
 
     }
-    changeHowto(indicator : number){
+    changeHowto(indicator: number) {
         this.HowTo_Array.forEach(element => {
             let temp_howto = <any>document.getElementById(element);
             temp_howto.style.cssText = 'color: rgb(187, 131, 120);background-color: white;'
         });
-        let current_howto = <any>document.getElementById(this.HowTo_Array[indicator-1])
+        let current_howto = <any>document.getElementById(this.HowTo_Array[indicator - 1])
         current_howto.style.cssText = 'background-color: rgb(187, 131, 120);color: rgb(255, 235, 231);'
 
         this.HowToIndicator = indicator

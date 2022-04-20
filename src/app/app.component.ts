@@ -90,6 +90,8 @@ export class AppComponent {
     this.data.getCoinAndCodeName()
     this.getTabName()
     this.CheckIn()
+    this.data.getUserScore()
+
   }
 
 }

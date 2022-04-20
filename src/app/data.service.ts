@@ -10,13 +10,13 @@ import * as CryptoJS from 'crypto-js';
 
 @Injectable()
 export class DataService {
-    public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
-    // public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
+    // public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
+    public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
     // public dataUrl = 'https://ishareteam2.na.xom.com/sites/CHEMGMO18/WAEM/vcoin/ITFairOnline2/'
 
     // public urlLocation = 'http://localhost:4200';
-    public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
-    // public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
+    // public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
+    public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
     // public urlLocation = 'https://ishareteam2.na.xom.com/sites/CHEMGMO18/WAEM/vcoin/ITFairOnline2/package/Code/index.html';
 
     private returnLocation = new BehaviorSubject('/Landing-site');
@@ -67,6 +67,7 @@ export class DataService {
     public loadingMSG = "Loading"
     public loading: boolean = false
     public confirmationMessage = ""
+    QuizTracker: any;
 
     constructor(
         private http: HttpClient,
@@ -183,7 +184,15 @@ export class DataService {
         })
 
     }
+    reverseString(str: string) {
 
+        // empty string
+        let newString = "";
+        for (let i = str.length - 1; i >= 0; i--) {
+            newString += str[i];
+        }
+        return newString;
+    }
     getUserScore() {
 
         this.http.get<any>(this.url + "_api/sp.userprofiles.peoplemanager/getmyproperties", {
@@ -198,6 +207,7 @@ export class DataService {
                     for (let key in data.d.results) {
                         keys.push({ value: data.d.results[key], creator2: data1.d.DisplayName });
                     }
+                    this.QuizTracker = this.reverseString(keys[0].value.QuizTracker.toString())
                     this.changeUserScore(keys); //update leaderboard
                     this.userScore = keys
                     return keys
@@ -244,11 +254,17 @@ export class DataService {
                 this.getUserScore()
                 this.loading = false
                 if (UserPromo == 'Yes') {
-                    this.confirmationMessage = "First convert promotion. earn :" + data.d.Score + this.CoinsName;
+                    this.confirmationMessage = "earn :" + data.d.Score + this.CoinsName;
+                    // this.confirmationMessage = "First convert promotion. earn :" + data.d.Score + this.CoinsName;
                 }
                 else {
                     this.confirmationMessage = "earn :" + data.d.Score + this.CoinsName;
                 }
+            }
+            else if (data.d.Status == "InCompleted") {
+                this.loading = false
+                this.confirmationMessage = "Some quiz is misses";
+                this.openAlert();
             }
             else if (data.d.Status == "In Progress") {
                 this.waitTilComplete(url, UserPromo)
@@ -271,6 +287,28 @@ export class DataService {
         // let eventCode = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value);
         // this.transactionInfo.EventOrPrice = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value + "" + "2M2Edsin6u8eqlqM");
         this.transactionInfo.EventOrPrice = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
+        this.transactionInfo.Operation = "earn"
+        this.transactionInfo.Status = "In Progress"
+        
+        //check for code existent
+        this.http.post<any>(this.url + this.listReqURL + "Transaction",
+            JSON.stringify(this.transactionInfo)
+            , { withCredentials: true }
+        ).subscribe(dataPost => {
+            this.loading = true
+            this.loadingMSG = "Finalizing your transaction. This could take a moment."
+            this.waitTilComplete(dataPost.d.__metadata.uri, UserPromo)
+
+
+        })
+
+
+    }
+    earnQuiz() {
+        let UserPromo = this.userScore[0].value.Promo
+        // let eventCode = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value);
+        // this.transactionInfo.EventOrPrice = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value + "" + "2M2Edsin6u8eqlqM");
+        this.transactionInfo.EventOrPrice = "Quiz"
         this.transactionInfo.Operation = "earn"
         this.transactionInfo.Status = "In Progress"
         

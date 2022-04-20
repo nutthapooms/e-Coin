@@ -27,7 +27,8 @@
     display: block;
     /* width: 80%; */
     height: 100px;
-    filter: grayscale(80%);
+    opacity: 0.5
+    /* filter: grayscale(80%); */
 }
 
 .howto_title {

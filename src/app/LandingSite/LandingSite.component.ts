@@ -121,7 +121,7 @@ export class LandingSiteComponent implements OnInit {
         UpcomingEventBtn.style.cssText = 'border-bottom : hidden;'
         AllEventBtn.style.cssText = 'border-bottom : 2px solid currentColor; border-radius: 0px;'
         this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetailsPublic" + "/?$filter=(Active ne 'Disable' and Display ne 'Hide')&$orderby=EventDate%20desc", {
-        // this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable')", {
+            // this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable')", {
             responseType: 'json'
             , withCredentials: true
         }).subscribe(data => {
@@ -132,7 +132,7 @@ export class LandingSiteComponent implements OnInit {
                 let EventDate = data.d.results[index].EventDate.replace('/Date(', '')
                 data.d.results[index].EventDate = new Date(parseInt(EventDate.replace(')/', ''))).toDateString();
                 // if (new Date() < new Date(parseInt(EventDate.replace(')/', '')))) {
-                    this.Challenges.push({ value: data.d.results[index], PictureUrl: this.data.dataUrl + "Picture%20Hub/" + data.d.results[index].Picture });
+                this.Challenges.push({ value: data.d.results[index], PictureUrl: this.data.dataUrl + "Picture%20Hub/" + data.d.results[index].Picture });
 
                 // }
             }
@@ -147,7 +147,7 @@ export class LandingSiteComponent implements OnInit {
         // UpcomingEventBtn.style.cssText = 'border-bottom : 2px solid currentColor; border-radius: 0px;'
         // AllEventBtn.style.cssText = 'border-bottom : hidden;'
         this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetailsPublic" + "/?$filter=(Active ne 'Disable' and Display ne 'Hide')", {
-        // this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable')", {
+            // this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable')", {
             responseType: 'json'
             , withCredentials: true
         }).subscribe(data => {
@@ -173,13 +173,13 @@ export class LandingSiteComponent implements OnInit {
         UpcomingEventBtn.style.cssText = 'border-bottom : 2px solid currentColor; border-radius: 0px;'
         AllEventBtn.style.cssText = 'border-bottom : hidden;'
         this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetailsPublic" + "/?$filter=(Active ne 'Disable' and Display ne 'Hide')&$orderby=EventDate%20desc", {
-        // this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable')", {
+            // this.http.get<any>(this.data.dataUrl + this.listReqURL + "ChallengesDetail" + "/?$filter=(Active ne 'Disable')", {
             responseType: 'json'
             , withCredentials: true
         }).subscribe(data => {
             this.data.loading = false
             let tempDate = new Date()
-            tempDate.setDate(new Date().getDate()-7)
+            tempDate.setDate(new Date().getDate() - 7)
 
             for (let index in data.d.results) {
 
@@ -194,7 +194,9 @@ export class LandingSiteComponent implements OnInit {
         })
     }
     getBoothDetailAdmin() {
+        this.data.loadingMSG = "Loading Challenges"
         this.data.loading = true
+
         // alert("test")
         this.data.currentUserName.subscribe(message => {
             this.userProfile = message
@@ -212,12 +214,12 @@ export class LandingSiteComponent implements OnInit {
                     this.ChallengesAdmin.push({ value: data.d.results[index], PictureUrl: this.data.dataUrl + "Picture%20Hub/" + data.d.results[index].Picture });
                 }
             }
-
+            this.data.loadingMSG = "Loading"
             this.data.loading = false
 
         })
     }
-    
+
     registerLink(link: string) {
         window.open(link, '_blank')
     }
@@ -334,7 +336,7 @@ export class LandingSiteComponent implements OnInit {
 
     }
 
-   
+
 
     // forward/Back controls
 
@@ -351,13 +353,15 @@ export class LandingSiteComponent implements OnInit {
             this.userScore = message
             if (this.userScore[0].value.Role == 'Admin') {
                 this.adminCheck = true
+                this.getBoothDetailAdmin()
+
             }
         })
         setTimeout(() => {
             this.SlideShow(1)
         }, 200)
         setTimeout(() => {
-            this.getBoothDetailAdmin()
+            // this.getBoothDetailAdmin()
         }, 2000)
 
     }

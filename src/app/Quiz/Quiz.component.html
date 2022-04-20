@@ -4,20 +4,32 @@
     <h2>
         Quiz
     </h2>
-
+    <p>
+        Answer all {{Quizes.length}} quizes to earn {{data.CoinsName}}!
+    </p>
+    <button class="em-c-btn em-c-btn--disabled" *ngIf="!checkAllDone(data.QuizTracker)">
+        Submit score
+    </button>
+    <button class="em-c-btn " (click)="data.earnQuiz()" *ngIf="checkAllDone(data.QuizTracker)">
+        Submit score
+    </button>
     <div class="em-l-grid em-l-grid--4up ">
         <div id="Code" class="em-l-grid__item instructionBlock" *ngFor="let Quiz of Quizes; index as i" (click)="openQuiz(Quiz)">
-            <div *ngIf="checkDone(QuizTracker,i)">
-                <img src={{QuizimagePath+Quiz.Picture}} class="howto_img_done" />
+            <div *ngIf="checkDone(data.QuizTracker,i)==0">
+                <img src={{QuizimagePath+Quiz.Picture}} class="howto_img" />
+                <!-- <img src="{{tick_img}}" alt="" style="margin-top: -200%;margin-left: 50%;"> -->
                 <h3 class="howto_title">
-                    Quiz : {{Quiz.QuizNo}} done
+                    Quiz : {{Quiz.QuizNo}}
                 </h3>
                 <h4>
                     {{Quiz.Score}} {{data.CoinsName}}
                 </h4>
             </div>
-            <div *ngIf="!checkDone(QuizTracker,i)">
-                <img src={{QuizimagePath+Quiz.Picture}} class="howto_img" />
+            <div *ngIf="checkDone(data.QuizTracker,i)!=0">
+                <img src={{QuizimagePath+Quiz.Picture}} class="howto_img_done" />
+                <img src="{{tick_img}}" alt="" style="margin-top: -200%;margin-left: 50%; z-index: -1;" *ngIf="checkDone(data.QuizTracker,i)==1">
+                <img src="{{cross_img}}" alt="" style="margin-top: -200%;margin-left: 50%;z-index: -1" *ngIf="checkDone(data.QuizTracker,i)==2">
+
                 <h3 class="howto_title">
                     Quiz : {{Quiz.QuizNo}}
                 </h3>
@@ -95,7 +107,7 @@
         </div>
         <!-- end em-c-modal__body -->
         <div id="confirmationFooter_Default " class="em-c-modal__footer em-c-text-passage em-c-text-passage--small ">
-            <button class="em-c-btn em-c-btn_card " (click)="testInput() " *ngIf="!checkDone(QuizTracker,CurrentQuiz.QuizNo-1)">
+            <button class="em-c-btn em-c-btn_card " (click)="testInput() " *ngIf="!checkDone(data.QuizTracker,CurrentQuiz.QuizNo-1)">
                 <span class="em-c-btn__text ">OK</span>
             </button>
 

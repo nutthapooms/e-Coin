@@ -71,7 +71,7 @@
                             <tbody class="em-c-table__body ">
                                 <tr class="em-c-table__row you" *ngFor="let leader of data.LeaderBoard.slice(data.myRank, data.myRank+1);index as j" style="font-weight: 600; border-bottom-width:thin ;border-color: rgb(179, 179, 179);">
                                     <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="" style="font-weight: 600; padding-left: 40px;">
-                                        {{j + data.myRank}}
+                                        {{j + data.myRank + 1}}
                                     </td>
                                     <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="" style="font-weight: 600;">
                                         {{leader.Name}}

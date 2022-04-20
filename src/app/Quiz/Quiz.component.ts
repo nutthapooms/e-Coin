@@ -30,21 +30,20 @@ export class QuizComponent implements OnInit {
     HowTo_Array = ['Code', 'Coin', 'Reward', 'LuckyDraw']
     Quizes: any = []
     CurrentQuiz: any = {}
-    QuizTracker = ""
     Answer = ""
-
-
-
+    TotalEarnedScore = 0
 
     imagePathArr: any[] = []
-
 
     imagePath = this.data.dataUrl + "Picture%20Hub/"
     QuizimagePath = this.data.dataUrl + "Picture%20Hub/"
     eCode_img = this.data.dataUrl + "Picture%20Hub/eCode.svg"
+    tick_img = this.imagePath + "tick.svg"
+    cross_img = this.imagePath + "cross.svg"
+
 
     HowToIndicator = 1
-    QuizTransactionInfo = { QuizNo: "", Answer: "" ,OldStatus:""}
+    QuizTransactionInfo = { QuizNo: "", Answer: "", OldStatus: "" }
 
 
     loading = true
@@ -57,12 +56,12 @@ export class QuizComponent implements OnInit {
                 this.data.getUserScore()
                 this.data.loading = false
                 this.data.confirmationMessage = "Correct!"
-                
+
             }
             else if (data.d.NewStatus == null) {
                 delay(200);
                 this.waitTilComplete(url)
-                
+
             }
             else if (data.d.NewStatus == "2") {
                 this.data.loading = false
@@ -81,27 +80,35 @@ export class QuizComponent implements OnInit {
     SubmitAnswer() {
         // let eventCode = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value);
         // this.transactionInfo.EventOrPrice = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value + "" + "2M2Edsin6u8eqlqM");
-        this.QuizTransactionInfo.QuizNo = this.CurrentQuiz.QuizNo
-        this.QuizTransactionInfo.Answer = this.Answer
-        this.QuizTransactionInfo.OldStatus = this.reverseString(this.QuizTracker)
+        if (this.Answer != '') {
+            this.QuizTransactionInfo.QuizNo = this.CurrentQuiz.QuizNo
+            this.QuizTransactionInfo.Answer = this.Answer
+            this.QuizTransactionInfo.OldStatus = this.reverseString(this.data.QuizTracker)
 
-        //check for code existent
-        this.http.post<any>(this.data.url + this.data.listReqURL + "QuizTracker",
-            JSON.stringify(this.QuizTransactionInfo)
-            , { withCredentials: true }
-        ).subscribe(dataPost => {
-            this.data.loading = true
-            this.data.loadingMSG = "Finalizing your transaction. This could take a moment."
-            this.waitTilComplete(dataPost.d.__metadata.uri)
+            //check for code existent
+            this.http.post<any>(this.data.url + this.data.listReqURL + "QuizTracker",
+                JSON.stringify(this.QuizTransactionInfo)
+                , { withCredentials: true }
+            ).subscribe(dataPost => {
+                this.data.loading = true
+                this.data.loadingMSG = "Finalizing your transaction. This could take a moment."
+                this.waitTilComplete(dataPost.d.__metadata.uri)
 
-        })
+            })
+        }
+        else {
+            this.data.confirmationMessage = "Please select answer"
+            this.data.openAlert();
+        }
 
     }
+
+
     AnswerInput(answer: string) {
         this.Answer = answer
     }
     testInput() {
-        this.data.confirmationMessage = "Your answer is: "+this.Answer;
+        this.data.confirmationMessage = "Your answer is: " + this.Answer;
         this.data.openAlert();
         this.SubmitAnswer();
         this.closeQuiz()
@@ -146,14 +153,31 @@ export class QuizComponent implements OnInit {
         <HTMLInputElement><unknown>document.getElementById('QuizBlog')?.classList.add("em-is-closed")
     }
 
-
-
     openQuiz(Quiz: any) {
         <HTMLInputElement><unknown>document.getElementById('QuizBlog')?.classList.remove("em-is-closed")
         this.CurrentQuiz = Quiz
     }
     checkDone(QuizTracker: string, i: number) {
-        if (QuizTracker.substring(i, i + 1) != '0' && QuizTracker.substring(i, i + 1) != '') {
+        if (QuizTracker.substring(i, i + 1) == '0' || QuizTracker.substring(i, i + 1) == '') {
+            return 0
+
+        }
+        else if (QuizTracker.substring(i, i + 1) == '1') {
+            return 1
+        }
+        else {
+            return 2
+        }
+    }
+    checkAllDone(QuizTracker: string) {
+        let TotalQuizScore = 0
+        let QuizTrackertemp = this.reverseString(QuizTracker)
+        if ((this.data.QuizTracker.length == this.Quizes.length) && (!QuizTracker.includes('0'))) {
+            this.Quizes.forEach((element: { Score: any; }) => {
+                TotalQuizScore += (element.Score * parseInt(QuizTrackertemp.substring(QuizTrackertemp.length - 1)))
+                QuizTrackertemp = QuizTrackertemp.slice(0, -1)
+            });
+            this.TotalEarnedScore = TotalQuizScore
             return true
         }
         else {
@@ -164,14 +188,16 @@ export class QuizComponent implements OnInit {
     ngOnInit() {
         // alert(this.data.userScore[0].value.QuizTracker)
         this.data.getUserScore()
-        this.QuizTracker = this.reverseString(this.data.userScore[0].value.QuizTracker.toString())
-        this.getQuizes()
         this.getTabName()
+        this.getQuizes()
+
         let current_howto = <any>document.getElementById('Code')
         // current_howto.style.cssText = 'background-color: rgb(187, 131, 120);color: rgb(255, 235, 231);'
 
         this.data.currentUserScore.subscribe(message => {
-            this.userScore = message
+            this.data.userScore = message
+            
+
         })
         // this.data.currentLeaderBoard.subscribe(message => this.leaderBoard = message)
         // this.data.currentMyRank.subscribe(message => {
