@@ -5,8 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 
 import { delay } from 'q';
-import { analyzeAndValidateNgModules, ThrowStmt } from '@angular/compiler';
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 @Component({
     selector: 'Quiz',
     templateUrl: './Quiz.component.html',
