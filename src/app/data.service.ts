@@ -12,12 +12,12 @@ import * as CryptoJS from 'crypto-js';
 export class DataService {
     // public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
     public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
-    // public dataUrl = 'https://ishareteam2.na.xom.com/sites/CHEMGMO18/WAEM/vcoin/ITFairOnline2/'
+    // public dataUrl = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/'
 
     // public urlLocation = 'http://localhost:4200';
     // public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
     public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
-    // public urlLocation = 'https://ishareteam2.na.xom.com/sites/CHEMGMO18/WAEM/vcoin/ITFairOnline2/package/Code/index.html';
+    // public urlLocation = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/package/Code/index.html';
 
     private returnLocation = new BehaviorSubject('/Landing-site');
     currentReturnLocation = this.returnLocation.asObservable();
@@ -207,7 +207,13 @@ export class DataService {
                     for (let key in data.d.results) {
                         keys.push({ value: data.d.results[key], creator2: data1.d.DisplayName });
                     }
-                    this.QuizTracker = this.reverseString(keys[0].value.QuizTracker.toString())
+                    if(keys[0].value.QuizTracker!=null){
+                        this.QuizTracker = this.reverseString(keys[0].value.QuizTracker.toString())
+                    }
+                    else{
+                        this.QuizTracker = "0"
+                        
+                    }
                     this.changeUserScore(keys); //update leaderboard
                     this.userScore = keys
                     return keys

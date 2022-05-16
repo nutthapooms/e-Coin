@@ -353,16 +353,16 @@ export class LandingSiteComponent implements OnInit {
             this.userScore = message
             if (this.userScore[0].value.Role == 'Admin') {
                 this.adminCheck = true
-                this.getBoothDetailAdmin()
+                setTimeout(() => {
+                    this.getBoothDetailAdmin()
+                }, 2000)
 
             }
         })
         setTimeout(() => {
             this.SlideShow(1)
         }, 200)
-        setTimeout(() => {
-            // this.getBoothDetailAdmin()
-        }, 2000)
+
 
     }
     currentLocation() {

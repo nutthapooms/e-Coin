@@ -27,7 +27,7 @@ export class LeaderBoardComponent implements OnInit {
     myRank = 0
     userScore: any = []
 
-    imagePath = this.data.dataUrl + "Picture%20Hub/Winners-pana.svg"
+    imagePath = ""
 
     loading = true
 
@@ -48,7 +48,14 @@ export class LeaderBoardComponent implements OnInit {
         let surname = name.substring(name.indexOf(',') + 1); 
        return name.charAt(0)+"****, "+name.substring(name.indexOf(',') + 2).charAt(0)+"****"
     }
-    
+    getTabName() {
+        this.http.get<any>(this.url + this.listReqURL + "SiteDetails", {
+          responseType: 'json'
+          , withCredentials: true
+        }).subscribe(data => {
+          this.imagePath = this.url + "Picture%20Hub/" + data.d.results[4].Picture
+        })
+      }
 
 
     ngOnInit() {
@@ -57,6 +64,7 @@ export class LeaderBoardComponent implements OnInit {
         this.data.currentUserScore.subscribe(message => {
             this.userScore = message
         })
+        this.getTabName()
         // this.data.currentMyRank.subscribe(message => {
         //     this.myRank = message
         //   })
