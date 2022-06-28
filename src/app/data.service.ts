@@ -11,13 +11,13 @@ import * as CryptoJS from 'crypto-js';
 @Injectable()
 export class DataService {
     // public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
-    // public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
-    public dataUrl = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/'
+    public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
+    // public dataUrl = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/'
 
     // public urlLocation = 'http://localhost:4200';
     // public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
-    // public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
-    public urlLocation = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/package/Code/index.html';
+    public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
+    // public urlLocation = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/package/Code/index.html';
 
     private returnLocation = new BehaviorSubject('/Landing-site');
     currentReturnLocation = this.returnLocation.asObservable();
@@ -28,7 +28,7 @@ export class DataService {
     private UserScore = new BehaviorSubject([{ value: { Score: 0 } }]);
     currentUserScore = this.UserScore.asObservable();
 
-    public LeaderBoard = [{ Name: <any>{},EarnedScore:<any>{} }];
+    public LeaderBoard = [{ Name: <any>{}, EarnedScore: <any>{} }];
     // currentLeaderBoard = this.LeaderBoard.asObservable();
 
     private langSource = new BehaviorSubject('eng');
@@ -207,12 +207,17 @@ export class DataService {
                     for (let key in data.d.results) {
                         keys.push({ value: data.d.results[key], creator2: data1.d.DisplayName });
                     }
-                    if(keys[0].value.QuizTracker!=null){
+                    if (keys[0].value.QuizTracker != null) {
                         this.QuizTracker = this.reverseString(keys[0].value.QuizTracker.toString())
                     }
-                    else{
+                    else {
                         this.QuizTracker = "0"
-                        
+
+                    }
+                    if (keys[0].value.Role == "Blocked") {
+                        this.loading = false
+                        this.confirmationMessage = "Your account is suspended. Please contact Admin";
+                        this.openAlert();
                     }
                     this.changeUserScore(keys); //update leaderboard
                     this.userScore = keys
@@ -285,29 +290,43 @@ export class DataService {
                 this.confirmationMessage = "Code not found or currently unavailable";
                 this.openAlert();
             }
+            else if (data.d.Status == 'Suspend') {
+                this.loading = false
+                this.confirmationMessage = "Your account is suspended due to many false convert. Please contact Admin";
+                this.openAlert();
+            }
         })
     }
     earn() {
-        let UserPromo = this.userScore[0].value.Promo
-        let eventCode = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
-        // let eventCode = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value);
-        // this.transactionInfo.EventOrPrice = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value + "" + "2M2Edsin6u8eqlqM");
-        this.transactionInfo.EventOrPrice = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
-        this.transactionInfo.Operation = "earn"
-        this.transactionInfo.Status = "In Progress"
-        
-        //check for code existent
-        this.http.post<any>(this.url + this.listReqURL + "Transaction",
-            JSON.stringify(this.transactionInfo)
-            , { withCredentials: true }
-        ).subscribe(dataPost => {
-            this.loading = true
-            this.loadingMSG = "Finalizing your transaction. This could take a moment."
-            this.waitTilComplete(dataPost.d.__metadata.uri, UserPromo)
+        if (this.userScore[0].value.Role == "Blocked") {
+            // alert("Test")
+            this.loading = false
+            this.confirmationMessage = "Your account is suspended. Please contact Admin";
+            this.openAlert();
+        }
+        else {
+
+            let UserPromo = this.userScore[0].value.Promo
+            let eventCode = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
+            // let eventCode = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value);
+            // this.transactionInfo.EventOrPrice = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value + "" + "2M2Edsin6u8eqlqM");
+            this.transactionInfo.EventOrPrice = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
+            this.transactionInfo.Operation = "earn"
+            this.transactionInfo.Status = "In Progress"
+
+            //check for code existent
+            this.http.post<any>(this.url + this.listReqURL + "Transaction",
+                JSON.stringify(this.transactionInfo)
+                , { withCredentials: true }
+            ).subscribe(dataPost => {
+                this.loading = true
+                this.loadingMSG = "Finalizing your transaction. This could take a moment."
+                this.waitTilComplete(dataPost.d.__metadata.uri, UserPromo)
 
 
-        })
+            })
 
+        }
 
     }
     earnQuiz() {
@@ -317,7 +336,7 @@ export class DataService {
         this.transactionInfo.EventOrPrice = "Quiz"
         this.transactionInfo.Operation = "earn"
         this.transactionInfo.Status = "In Progress"
-        
+
         //check for code existent
         this.http.post<any>(this.url + this.listReqURL + "Transaction",
             JSON.stringify(this.transactionInfo)
@@ -364,7 +383,7 @@ export class DataService {
             this.getUser()
             this.LeaderBoard = data1.d.results
             this.myRank = (data1.d.results.findIndex(((item: { Name: any; }) => item.Name === this.userProfile.DisplayName)))
-            
+
             this.loading = false
         })
     }

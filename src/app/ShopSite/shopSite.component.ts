@@ -171,8 +171,9 @@ export class ShopSiteComponent implements OnInit {
             // alert("This will take around 5 secconds to check your Transaction details")
             this.loading = true
             setTimeout(() => {
-              this.data.openAlert()
               this.data.confirmationMessage = "You have successfully redeem lucky draw. Good luck on Lucky draw event day";
+              this.data.openAlert()
+
               this.loading = false
               this.data.getUserScore()
               this.getPrizeDetail()
@@ -210,9 +211,10 @@ export class ShopSiteComponent implements OnInit {
             // this.data.confirmationMessage = "This will take around 5 secconds to check your Transaction details";
             this.loading = true
             setTimeout(() => {
-              this.data.openAlert()
 
               this.data.confirmationMessage = "redeem success Admin will contact you weekly for your rewards.";
+              this.data.openAlert()
+
               this.loading = false
               this.data.getUserScore()
               this.getPrizeDetail()
