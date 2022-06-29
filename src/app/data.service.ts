@@ -287,7 +287,12 @@ export class DataService {
             }
             else if (data.d.Status == 'NotFound') {
                 this.loading = false
-                this.confirmationMessage = "Code not found or currently unavailable";
+                this.confirmationMessage = "Code not found";
+                this.openAlert();
+            }
+            else if (data.d.Status == 'NotEnable') {
+                this.loading = false
+                this.confirmationMessage = "Code is currently unavailable";
                 this.openAlert();
             }
             else if (data.d.Status == 'Suspend') {
@@ -305,12 +310,17 @@ export class DataService {
             this.openAlert();
         }
         else {
-
+            if ((<HTMLInputElement>document.getElementById('EventCodeInput')).value.trim() == "") {
+                this.loading = false
+                this.confirmationMessage = "Please input your code";
+                this.openAlert();
+                return;
+            }
             let UserPromo = this.userScore[0].value.Promo
-            let eventCode = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
+            // let eventCode = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
             // let eventCode = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value);
             // this.transactionInfo.EventOrPrice = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value + "" + "2M2Edsin6u8eqlqM");
-            this.transactionInfo.EventOrPrice = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
+            this.transactionInfo.EventOrPrice = (<HTMLInputElement>document.getElementById('EventCodeInput')).value.trim()
             this.transactionInfo.Operation = "earn"
             this.transactionInfo.Status = "In Progress"
 
