@@ -10,14 +10,14 @@ import * as CryptoJS from 'crypto-js';
 
 @Injectable()
 export class DataService {
-    // public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
-    public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
-    // public dataUrl = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/'
+    public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
+    // public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
+    // public dataUrl = 'https://ishareteam2.na.xom.com/sites/CHEMGMO18/WAEM/vcoin/ITFairOnline2/'
 
     // public urlLocation = 'http://localhost:4200';
-    // public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
-    public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
-    // public urlLocation = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/package/Code/index.html';
+    public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
+    // public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
+    // public urlLocation = 'https://ishareteam2.na.xom.com/sites/CHEMGMO18/WAEM/vcoin/ITFairOnline2/package/Code/index.html';
 
     private returnLocation = new BehaviorSubject('/Landing-site');
     currentReturnLocation = this.returnLocation.asObservable();
@@ -28,6 +28,7 @@ export class DataService {
     private UserScore = new BehaviorSubject([{ value: { Score: 0 } }]);
     currentUserScore = this.UserScore.asObservable();
 
+    // public LeaderBoard = [{ Name: <any>{}, Score: <any>{} }];
     public LeaderBoard = [{ Name: <any>{}, EarnedScore: <any>{} }];
     // currentLeaderBoard = this.LeaderBoard.asObservable();
 
@@ -287,7 +288,7 @@ export class DataService {
             }
             else if (data.d.Status == 'NotFound') {
                 this.loading = false
-                this.confirmationMessage = "Code not found or currently unavailable";
+                this.confirmationMessage = "Code not found or currently unavailable. Too many failed conversion will get your account suspended";
                 this.openAlert();
             }
             else if (data.d.Status == 'Suspend') {
@@ -377,6 +378,7 @@ export class DataService {
         this.loading = true
         let keys: { value: any; creator2: string; }[] = [];
         let indexer = []
+        // this.http.get<any>(this.url + this.listReqURL + "ContactDetails" + "?$orderby=EarnedScore%20desc,Modified", {
         this.http.get<any>(this.url + this.listReqURL + "ContactDetails" + "?$orderby=EarnedScore%20desc,Modified", {
             responseType: 'json', withCredentials: true
         }).subscribe(data1 => {
