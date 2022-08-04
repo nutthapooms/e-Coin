@@ -288,7 +288,7 @@ export class DataService {
             }
             else if (data.d.Status == 'NotFound') {
                 this.loading = false
-                this.confirmationMessage = "Code not found or currently unavailable. Too many failed conversion will get your account suspended";
+                this.confirmationMessage = "Sorry, code is not found or currently unavailable. Your account will be suspended after 5 fail attempts. Please enter valid code.";
                 this.openAlert();
             }
             else if (data.d.Status == 'Suspend') {
