@@ -81,7 +81,7 @@ export class MyRoomComponent implements OnInit {
     this.http.get<any>(this.url + "_api/sp.userprofiles.peoplemanager/getmyproperties", {
       responseType: 'json', withCredentials: true
     }).subscribe(data1 => {
-      this.http.get<any>(this.url + this.listReqURL + "Transaction" + "/?$filter=(CreatedBy/WorkEmail eq '" + data1.d.Email + "' and EventOrPrice ne 'create user' and EventOrPrice ne 'CheckIn' and Status ne 'Duplicate' and Status ne 'NotFound')", {
+      this.http.get<any>(this.url + this.listReqURL + "Transaction" + "/?$filter=(CreatedBy/WorkEmail eq '" + data1.d.Email + "' and EventOrPrice ne 'create user' and EventOrPrice ne 'CheckIn' and Status ne 'Duplicate' and Status ne 'NotEnable' and Status ne 'Suspend' and Status ne 'NotFound')", {
         responseType: 'json'
         // , withCredentials: true
       }).subscribe(data => {
