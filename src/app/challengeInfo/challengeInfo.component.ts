@@ -99,7 +99,6 @@ export class challengeInfoComponent implements OnInit {
       (<HTMLInputElement>document.getElementById('eventUrl')).value = this.challengeDetail.value.RegisterLink;
       // (<HTMLInputElement>document.getElementById('eventBy')).value = this.challengeDetail.value.RequestedBy;
       this.nrSelect = this.challengeDetail.value.RequestedBy;
-      alert(this.challengeDetail.value.RequestedBy);
       (<HTMLInputElement>document.getElementById('eventDate')).value = EventDate;
 
 
