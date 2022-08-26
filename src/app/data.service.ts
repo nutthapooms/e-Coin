@@ -2,6 +2,8 @@
 // dataUrl will indicate site data url
 // urlLocation will indicate where the index.html file located.
 
+//git test
+
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
