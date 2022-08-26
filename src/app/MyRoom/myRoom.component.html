@@ -146,6 +146,32 @@
                               {{leader.creator2}}
                           </td> -->
                                         </tr>
+                                        <tr class="em-c-table__row " *ngFor="let history of transactionsHistoryOld.slice(0, maxHistory)">
+                                            <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                                {{history.Created}}
+
+                                            </td>
+                                            <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                                <p *ngIf="history.Operation =='earn'">{{history.EventOrPrice}} {{history.EventName}}
+                                                </p>
+                                            </td>
+                                            <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                                <p *ngIf="history.Operation =='reduction'">{{history.EventOrPrice}}</p>
+                                            </td>
+
+                                            <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                                {{history.Amount}}
+
+                                            </td>
+                                            <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                                                <span *ngIf="history.Operation == 'earn'" style="color: green">+{{history.Score}}</span>
+                                                <span *ngIf="history.Operation == 'reduction'" style="color: red;">-{{history.Score}}</span>
+
+                                            </td>
+                                            <!-- <td class="em-c-table__cell em-js-cell em-js-cell-editable" colspan="">
+                              {{leader.creator2}}
+                          </td> -->
+                                        </tr>
                                         <!-- end em-c-table__row -->
 
                                         <!-- end em-c-table__row -->
@@ -163,6 +189,9 @@
                         </div>
                         <button class="em-c-btn em-c-btn_filter addShadow" (click)="limitcap()">
                             <span class="em-c-btn__text">See all</span>
+                        </button>
+                        <button class="em-c-btn em-c-btn_filter addShadow" (click)="getUserTransactionOld()">
+                            <span class="em-c-btn__text">See older history</span>
                         </button>
                         <!--end em-c-table-object__body-->
                     </td>

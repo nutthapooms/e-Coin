@@ -21,6 +21,7 @@ export class MyRoomComponent implements OnInit {
   coinImagePath = ""
   transactions: any = []
   transactionsHistory: any = []
+  transactionsHistoryOld: any = []
   listReqURL = "_vti_bin/ListData.svc/"
   maxHistory = 6
   LuckyDrawBG = this.url + "Picture%20Hub/Group%20102.svg"
@@ -111,6 +112,41 @@ export class MyRoomComponent implements OnInit {
       })
     })
   }
+  getUserTransactionOld() {
+    this.http.get<any>(this.url + "_api/sp.userprofiles.peoplemanager/getmyproperties", {
+      responseType: 'json', withCredentials: true
+    }).subscribe(data1 => {
+      this.http.get<any>(this.url + this.listReqURL + "TransactionOld" + "/?$filter=(CreatedBy/WorkEmail eq '" + data1.d.Email + "' and EventOrPrice ne 'create user' and EventOrPrice ne 'CheckIn' and Status ne 'Duplicate' and Status ne 'NotEnable' and Status ne 'Suspend' and Status ne 'NotFound')", {
+        responseType: 'json'
+        // , withCredentials: true
+      }).subscribe(data => {
+        let keys: any[] = [];
+        let keys2: any[] = [];
+
+        for (let key in data.d.results) {
+          let CreateDate = data.d.results[key].Created.replace('/Date(', '')
+          data.d.results[key].Created = new Date(parseInt(CreateDate.replace(')/', ''))).toDateString()
+          // if(data.d.results[key].Operation == 'earn'){
+          //   data.d.results[key].EventOrPrice = this.data.decryptUsingAES256(data.d.results[key].EventOrPrice);
+          // }
+
+          if (data.d.results[key].Operation == 'reduction') {
+            keys.push(data.d.results[key])
+            keys2.push(data.d.results[key])
+
+          }
+          // if (data.d.results[key].Operation == 'earn') {
+          else {
+            keys2.push(data.d.results[key])
+          }
+        }
+        this.data.changeMyTransactionHistoryOld(keys2.reverse());
+        // let transactionGroupbyItem = this.groupby(keys, 'EventOrPrice', 'IsGacha', 'PictureUrl')
+        // this.data.changeMyTransaction(transactionGroupbyItem); //update Transaction
+      })
+    })
+  }
+
 
 
 
@@ -118,7 +154,10 @@ export class MyRoomComponent implements OnInit {
   ngOnInit() {
     this.getTabName()
     this.getUserTransaction()
+    this.getUserTransactionOld()
+
     this.data.currentMyTransactionHistory.subscribe(message => this.transactionsHistory = message)
+    this.data.currentMyTransactionHistoryOld.subscribe(message => this.transactionsHistoryOld = message)
     this.data.currentMyTransaction.subscribe(message => {
       this.transactions = message
     })
