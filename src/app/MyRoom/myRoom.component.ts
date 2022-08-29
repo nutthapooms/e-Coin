@@ -23,7 +23,7 @@ export class MyRoomComponent implements OnInit {
   transactionsHistory: any = []
   transactionsHistoryOld: any = []
   listReqURL = "_vti_bin/ListData.svc/"
-  maxHistory = 6
+  maxHistory = 100
   LuckyDrawBG = this.url + "Picture%20Hub/Group%20102.svg"
 
 
@@ -154,10 +154,10 @@ export class MyRoomComponent implements OnInit {
   ngOnInit() {
     this.getTabName()
     this.getUserTransaction()
-    this.getUserTransactionOld()
+    // this.getUserTransactionOld()
 
     this.data.currentMyTransactionHistory.subscribe(message => this.transactionsHistory = message)
-    this.data.currentMyTransactionHistoryOld.subscribe(message => this.transactionsHistoryOld = message)
+    // this.data.currentMyTransactionHistoryOld.subscribe(message => this.transactionsHistoryOld = message)
     this.data.currentMyTransaction.subscribe(message => {
       this.transactions = message
     })

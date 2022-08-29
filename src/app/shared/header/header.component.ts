@@ -77,10 +77,10 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  onImgError(event :Event){
+  onImgError(event: Event) {
     (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png"
-   //Do other stuff with the event.target
-   }
+    //Do other stuff with the event.target
+  }
 
   getUser() {
     (<HTMLInputElement>document.getElementById('ProfileImage')).src = this.data.dataUrl + "Picture%20Hub/defaultProfileImage.png";
@@ -211,6 +211,26 @@ export class HeaderComponent implements OnInit {
         let keys: any[] = [];
         let keys2: any[] = [];
 
+        // ---------------------in Case we need Old data --------------------------------------------
+        this.http.get<any>(this.url + this.listReqURL + "TransactionOld" + "/?$filter=(CreatedBy/WorkEmail eq '" + data1.d.Email + "' and EventOrPrice ne 'create user')", {
+          responseType: 'json'
+          // , withCredentials: true
+        }).subscribe(dataOld => {
+          alert("getting old")
+          for (let key in dataOld.d.results) {
+            let CreateDate = dataOld.d.results[key].Created.replace('/Date(', '')
+            dataOld.d.results[key].Created = new Date(parseInt(CreateDate.replace(')/', ''))).toString()
+            if (dataOld.d.results[key].Operation == 'reduction') {
+              keys.push(dataOld.d.results[key])
+
+            }
+            if (dataOld.d.results[key].Operation == 'earn') {
+              keys2.push(dataOld.d.results[key])
+            }
+          }
+          
+        })
+        // ------------------------------------------------------------------------------------------
         for (let key in data.d.results) {
           let CreateDate = data.d.results[key].Created.replace('/Date(', '')
           data.d.results[key].Created = new Date(parseInt(CreateDate.replace(')/', ''))).toString()
@@ -222,6 +242,7 @@ export class HeaderComponent implements OnInit {
             keys2.push(data.d.results[key])
           }
         }
+        
         this.data.changeMyTransactionHistory(keys2);
         let transactionGroupbyItem = this.groupby(keys, 'EventOrPrice')
         this.data.changeMyTransaction(transactionGroupbyItem); //update Transaction
