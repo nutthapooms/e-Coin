@@ -31,6 +31,9 @@ export class ShopSiteComponent implements OnInit {
   imagePath = ""
   coinImagePath = ""
   LuckyDrawBG = this.url + "Picture%20Hub/Group%20102.svg"
+  SalesIcon = this.url + "Picture%20Hub/SaleIcon.png"
+
+
   confirmationMessage = ""
   confirmBtn = false
   cancelBtn = false
@@ -117,7 +120,7 @@ export class ShopSiteComponent implements OnInit {
   }
   chooseItem(prizeName: string, price: number, isGacha: string, prize: any) {
     this.temp_item = prizeName
-    this.temp_price = price
+    this.temp_price = price*(1-prize.value.DiscountPer/100)
     this.temp_isGacha = isGacha
     this.temp_picture_url = prize.PictureUrl
     this.temp_description = prize.value.Description

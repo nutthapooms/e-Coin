@@ -1,6 +1,6 @@
 <br>
 <br>
-<div class="em-c-modal em-js-modal-only em-is-closed" id="comfirmation_default">
+<div class="em-c-modal em-js-modal-only em-is-closed" id="comfirmation_default" >
     <div class="em-c-modal__window em-js-modal-window">
         <div class="em-c-modal__header">
             <h3 class="em-c-modal__title">Redeem Confirmation</h3>
@@ -58,7 +58,7 @@
 </div>
 <!-- end em-c-modal -->
 
-<div class="em-c-modal em-js-modal-only em-is-closed" id="comfirmation_gacha">
+<div class="em-c-modal em-js-modal-only em-is-closed" id="comfirmation_gacha" style="z-index: 3;">
     <div class="em-c-modal__window em-js-modal-window">
         <div class="em-c-modal__header">
             <h3 class="em-c-modal__title">Redeem Confirmation</h3>
@@ -132,7 +132,7 @@
 <!-- end em-c-modal -->
 
 
-<div *ngIf="loading" class="overlay">
+<div *ngIf="loading" class="overlay" >
     <h2 style="text-align: center; margin: auto; margin-top: 30%;">Loading</h2>
 </div>
 
@@ -195,6 +195,7 @@
 
                     <div class="em-c-card" *ngIf="prize.value.IsGacha == 'yes'" style="border-style: hidden; background-color:rgba(255, 255, 255, 0);">
                         <div class="em-c-card__body" style="background-color:rgba(255, 255, 255, 0);">
+                            
                             <div class="em-c-media-block__media" style="margin: auto; padding-top:10%; height: 200px; width:auto">
                                 <img src={{prize.PictureUrl}} alt="Alt Text" class="em-c-media-block__img" />
                             </div>
@@ -204,9 +205,12 @@
                                 </div> -->
                                 <!-- end em-c-media-block__media -->
                                 <div class="em-c-media-block__body">
+                                    
                                     <h2 class="em-c-media-block__headline ">
+                                        
                                         {{prize.value.Title}}
                                     </h2>
+                                    
                                     <p class="em-c-media-block__desc">Total tickets sold: {{prize.value.Sold}}</p>
 
                                     <!-- <p class="em-c-media-block__desc">Valid until: {{prize.value.ValidUntil}}</p> -->
@@ -267,12 +271,18 @@
                     <div class="em-c-card " *ngIf="prize.value.IsGacha != 'yes'">
                         <div class="em-c-card__body">
                             <div class="em-c-media-block em-c-media-block--small">
+                                <div class="em-c-media-block__media" style="width: 10%; margin-right: -8%; z-index: 2;" *ngIf="prize.value.DiscountPer !=0">
+                                    <img src="https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/Picture%20Hub/SaleIcon.png" alt="Alt Text" class="em-c-media-block__img" />
+                                </div>
                                 <div class="em-c-media-block__media">
                                     <img src={{prize.PictureUrl}} alt="Alt Text" class="em-c-media-block__img" />
                                 </div>
                                 <!-- end em-c-media-block__media -->
                                 <div class="em-c-media-block__body">
-                                    <h2 class="em-c-media-block__headline ">
+                                    <div *ngIf="prize.value.NewItem=='New'" style="color: red;"> 
+                                        NEW
+                                    </div>
+                                    <h2 class="em-c-media-block__headline">
                                         {{prize.value.Title}}
                                     </h2>
                                     <tr>
@@ -301,8 +311,11 @@
                                 <td style="width: 10%;">
                                     <img class="coinIcon" src={{coinImagePath}} style="width: 40px; vertical-align: middle;">
                                 </td>
-                                <td>
+                                <td >
                                     {{prize.value.Price}} {{data.CoinsName}}
+                                </td>
+                                <td *ngIf="prize.value.DiscountPer !=0" style="color: grey; text-decoration: line-through">
+                                    {{prize.value.OriginalPrice}} {{data.CoinsName}}
                                 </td>
                                 <td>
                                     <button disabled class="em-c-btn em-c-btn_soldout" *ngIf="prize.value.AmountLeft == 0">

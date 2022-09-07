@@ -8453,6 +8453,7 @@ a.em-c-solid-card__body:hover, a.em-c-solid-card__body:focus {
  * Modal When JS fails
  */
 .em-c-modal {
+  z-index: 3;
   display: block;
   position: relative;
   /**
