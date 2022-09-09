@@ -10,13 +10,13 @@ import * as CryptoJS from 'crypto-js';
 
 @Injectable()
 export class DataService {
-    // public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
-    public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
+    public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
+    // public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
     // public dataUrl = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/'
 
     // public urlLocation = 'http://localhost:4200';
-    // public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
-    public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
+    public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
+    // public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
     // public urlLocation = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/package/Code/index.html'
 
     private returnLocation = new BehaviorSubject('/Landing-site');
