@@ -72,7 +72,20 @@
         <!-- end em-c-field__body -->
     </div>
     <!-- end em-c-field -->
-
+    <div class="em-c-field ">
+        <label for="" class="em-c-field__label">Event by</label>
+        <div class="em-c-field__body">
+            <select class="em-c-select em-c-select" id="eventBy" placeholder="">
+                <optgroup label="">
+                    <option value="Core team">Core team</option>
+                    <option value="THVision">THVision</option>
+                    <option value="Partner">Partner</option>
+                    
+                </optgroup>
+            </select>
+        </div>
+        <!-- end em-c-field__body -->
+    </div>
     <!-- end em-c-field -->
     <button id="submitBTN" class="em-c-btn em-c-btn_filter" (click)="submit()">
         <span class="em-c-btn__text">Submit Event</span>

@@ -16,7 +16,7 @@ export class ChallengeFormComponent implements OnInit {
         private data: DataService,
         private routing: Router
     ) { }
-    eventDetail = { Title: "", Description: "", EventCode: "", Score: "", RegisterLink: "", Active: "Disable", CodeLimit: 0, Picture: "defaultEvent.png", Display: "Hide", EventDate: new Date() }
+    eventDetail = { Title: "", Description: "", EventCode: "", Score: "", RegisterLink: "", Active: "Disable", CodeLimit: 0, Picture: "defaultEvent.png", Display: "Hide", EventDate: new Date() ,RequestedBy:""}
     publicEvent?: any;
     url = this.data.dataUrl;
     listReqURL = "_vti_bin/ListData.svc/"
@@ -30,6 +30,8 @@ export class ChallengeFormComponent implements OnInit {
         this.eventDetail.Score = (<HTMLInputElement>document.getElementById('codeEarning')).value
         this.eventDetail.RegisterLink = (<HTMLInputElement>document.getElementById('eventUrl')).value
         this.eventDetail.CodeLimit = parseInt((<HTMLInputElement>document.getElementById('codeLimit')).value)
+        this.eventDetail.RequestedBy = (<HTMLInputElement>document.getElementById('eventBy')).value
+
         this.eventDetail.EventDate = new Date(new Date((<HTMLInputElement>document.getElementById('eventDate')).value).getTime() + (24000 * 60 * 60))
         let temp_date = new Date(new Date((<HTMLInputElement>document.getElementById('eventDate')).value).getTime() + (24000 * 60 * 60)).toString()
         // alert(eventCode.length && this.eventDetail.Title.length && this.eventDetail.Description.length && temp_date.length && this.eventDetail.RegisterLink.length && this.eventDetail.CodeLimit && this.eventDetail.EventCode.length) 

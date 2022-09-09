@@ -24,6 +24,7 @@ export class challengeInfoComponent implements OnInit {
   challengeDetail: any = {}
   eventDetail: any = {}
   publicEvent?: any
+  nrSelect: any
 
   updateChange(chanllenngeId: number, challenge: any) {
     let eventCode = (<HTMLInputElement>document.getElementById('eventCode')).value
@@ -33,6 +34,7 @@ export class challengeInfoComponent implements OnInit {
     this.eventDetail.Score = (<HTMLInputElement>document.getElementById('codeEarning')).value
     this.eventDetail.RegisterLink = (<HTMLInputElement>document.getElementById('eventUrl')).value
     this.eventDetail.CodeLimit = parseInt((<HTMLInputElement>document.getElementById('codeLimit')).value)
+    this.eventDetail.RequestedBy = (<HTMLInputElement>document.getElementById('eventBy')).value
     this.eventDetail.EventDate = new Date(new Date((<HTMLInputElement>document.getElementById('eventDate')).value).getTime() + (24000 * 60 * 60))
     // this.eventDetail.EventDate = new Date(new Date((<HTMLInputElement>document.getElementById('eventDate')).value).getTime() + (71000 * 60 * 60))    
     this.http.get<any>(this.url + this.listReqURL + "ChallengesDetail" + "/?$filter=(EventCode eq '" + eventCode + "')"
@@ -78,8 +80,6 @@ export class challengeInfoComponent implements OnInit {
   ngOnInit() {
     this.data.currenttempTransaction.subscribe(message => {
       this.transactions = message
-
-
     })
     this.data.currentChallengeDetail.subscribe(message => {
       this.challengeDetail = message;
@@ -97,6 +97,8 @@ export class challengeInfoComponent implements OnInit {
       (<HTMLInputElement>document.getElementById('eventCode')).value = this.challengeDetail.value.EventCode;
       (<HTMLInputElement>document.getElementById('codeEarning')).value = this.challengeDetail.value.Score;
       (<HTMLInputElement>document.getElementById('eventUrl')).value = this.challengeDetail.value.RegisterLink;
+      // (<HTMLInputElement>document.getElementById('eventBy')).value = this.challengeDetail.value.RequestedBy;
+      this.nrSelect = this.challengeDetail.value.RequestedBy;
       (<HTMLInputElement>document.getElementById('eventDate')).value = EventDate;
 
 
