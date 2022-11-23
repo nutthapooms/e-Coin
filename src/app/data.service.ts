@@ -2,6 +2,8 @@
 // dataUrl will indicate site data url
 // urlLocation will indicate where the index.html file located.
 
+//git test
+
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -12,12 +14,13 @@ import * as CryptoJS from 'crypto-js';
 export class DataService {
     public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
     // public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
-    // public dataUrl = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/'
+    // public dataUrl = 'https://ishareteam2.na.xom.com/sites/CHEMGMO18/WAEM/vcoin/ITFairOnline2/'
 
     // public urlLocation = 'http://localhost:4200';
     public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
     // public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
-    // public urlLocation = 'https://ishareteam3.na.xom.com/sites/CONTBK/BKCFSHOME/APCFSDI/CFSCOIN/cfscoinplatform/package/Code/index.html'
+    // public urlLocation = 'https://ishareteam2.na.xom.com/sites/CHEMGMO18/WAEM/vcoin/ITFairOnline2/package/Code/index.html';
+
 
     private returnLocation = new BehaviorSubject('/Landing-site');
     currentReturnLocation = this.returnLocation.asObservable();
@@ -28,6 +31,7 @@ export class DataService {
     private UserScore = new BehaviorSubject([{ value: { Score: 0 } }]);
     currentUserScore = this.UserScore.asObservable();
 
+    // public LeaderBoard = [{ Name: <any>{}, Score: <any>{} }];
     public LeaderBoard = [{ Name: <any>{}, EarnedScore: <any>{} }];
     // currentLeaderBoard = this.LeaderBoard.asObservable();
 
@@ -290,12 +294,7 @@ export class DataService {
             }
             else if (data.d.Status == 'NotFound') {
                 this.loading = false
-                this.confirmationMessage = "Code not found";
-                this.openAlert();
-            }
-            else if (data.d.Status == 'NotEnable') {
-                this.loading = false
-                this.confirmationMessage = "Code is currently unavailable";
+                this.confirmationMessage = "Sorry, code is not found or currently unavailable. Your account will be suspended after 5 fail attempts. Please enter valid code.";
                 this.openAlert();
             }
             else if (data.d.Status == 'Suspend') {
@@ -313,17 +312,12 @@ export class DataService {
             this.openAlert();
         }
         else {
-            if ((<HTMLInputElement>document.getElementById('EventCodeInput')).value.trim() == "") {
-                this.loading = false
-                this.confirmationMessage = "Please input your code";
-                this.openAlert();
-                return;
-            }
+
             let UserPromo = this.userScore[0].value.Promo
-            // let eventCode = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
+            let eventCode = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
             // let eventCode = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value);
             // this.transactionInfo.EventOrPrice = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value + "" + "2M2Edsin6u8eqlqM");
-            this.transactionInfo.EventOrPrice = (<HTMLInputElement>document.getElementById('EventCodeInput')).value.trim()
+            this.transactionInfo.EventOrPrice = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
             this.transactionInfo.Operation = "earn"
             this.transactionInfo.Status = "In Progress"
 
@@ -390,6 +384,7 @@ export class DataService {
         this.loading = true
         let keys: { value: any; creator2: string; }[] = [];
         let indexer = []
+        // this.http.get<any>(this.url + this.listReqURL + "ContactDetails" + "?$orderby=EarnedScore%20desc,Modified", {
         this.http.get<any>(this.url + this.listReqURL + "ContactDetails" + "?$orderby=EarnedScore%20desc,Modified", {
             responseType: 'json', withCredentials: true
         }).subscribe(data1 => {
