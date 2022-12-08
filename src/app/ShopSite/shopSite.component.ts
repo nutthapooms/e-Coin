@@ -24,7 +24,7 @@ export class ShopSiteComponent implements OnInit {
   url = this.data.dataUrl;
   listReqURL = "_vti_bin/ListData.svc/";
   prizeList: any[] = []
-  transactionInfo = { EventOrPrice: "", Operation: "", IsGacha: "", Amount: 1 }
+  transactionInfo = { EventOrPrice: "", Operation: "", IsGacha: "", Amount: 1, Status:"In Progress" }
   userUpdate = { Name: "Update", Score: 0 }
   userScore: any = []
   userProfile: any = {}
@@ -55,10 +55,10 @@ export class ShopSiteComponent implements OnInit {
 
   onKeyUp() {
     let amount1 = (<HTMLInputElement>document.getElementById('ItemAmount')).value
-    if(isNaN(parseInt(amount1))){
+    if (isNaN(parseInt(amount1))) {
       this.calculator = 0
     }
-    else{
+    else {
       this.calculator = parseInt(amount1)
 
     }
@@ -168,7 +168,7 @@ export class ShopSiteComponent implements OnInit {
             JSON.stringify(this.transactionInfo)
             , { withCredentials: true }
           ).subscribe(data => {
-            this.transactionInfo = { EventOrPrice: "", Operation: "", IsGacha: "", Amount: 1 }
+            this.transactionInfo = { EventOrPrice: "", Operation: "", IsGacha: "", Amount: 1,Status:"In Progress" }
             // this.data.confirmationMessage = "This will take around 5 secconds to check your Transaction details";
             // this.data.openAlert()
             // alert("This will take around 5 secconds to check your Transaction details")
@@ -200,32 +200,33 @@ export class ShopSiteComponent implements OnInit {
       this.transactionInfo.Operation = "reduction"
       this.transactionInfo.IsGacha = isGacha
       if (this.userScore[0].value.Score >= this.temp_price) {
-        if (this.temp_prize.value.AmountLeft == 0) {
-          this.data.confirmationMessage = "Sorry. This item had Sold-out";
-          this.data.openAlert()
-        }
-        else {
-          this.http.post(this.url + this.listReqURL + "Transaction",
+        // if (this.temp_prize.value.AmountLeft == 0) {
+        //   this.data.confirmationMessage = "Sorry. This item had Sold-out";
+        //   this.data.openAlert()
+        // }
+        // else {
+          this.http.post<any>(this.url + this.listReqURL + "Transaction",
             JSON.stringify(this.transactionInfo)
             , { withCredentials: true }
-          ).subscribe(data => {
-            this.transactionInfo = { EventOrPrice: "", Operation: "", IsGacha: "", Amount: 1 }
+          ).subscribe(dataPost => {
+            this.transactionInfo = { EventOrPrice: "", Operation: "", IsGacha: "", Amount: 1 ,Status : "In Progress"}
 
             // this.data.confirmationMessage = "This will take around 5 secconds to check your Transaction details";
             this.loading = true
-            setTimeout(() => {
+            this.waitTilComplete(dataPost.d.__metadata.uri)
+            // setTimeout(() => {
 
-              this.data.confirmationMessage = "redeem success Admin will contact you weekly for your rewards.";
-              this.data.openAlert()
+            //   this.data.confirmationMessage = "redeem success Admin will contact you weekly for your rewards.";
+            //   this.data.openAlert()
 
-              this.loading = false
-              this.data.getUserScore()
-              this.getPrizeDetail()
+            //   this.loading = false
+            //   this.data.getUserScore()
+            //   this.getPrizeDetail()
 
 
-            }, 5000)
+            // }, 5000)
           })
-        }
+        // }
       }
       else {
         this.data.confirmationMessage = "Collect more " + this.data.CoinsName + " for this item";
@@ -237,7 +238,31 @@ export class ShopSiteComponent implements OnInit {
   }
 
 
+  waitTilComplete(url: string) {
+    this.http.get<any>(url).subscribe(data => {
+      if (data.d.Status == "Completed") {
+        this.loading = false
+        this.data.confirmationMessage = "redeem success Admin will contact you weekly for your rewards.";
+        this.data.openAlert()
+        this.data.getUserScore()
+        this.getPrizeDetail()
 
+      }
+      else if (data.d.Status == "In Progress" ||data.d.Status == null) {
+        setTimeout(() => {
+          this.waitTilComplete(url)
+        }
+          , 1000
+        )
+      }
+
+      else if (data.d.Status == 'Sold Out') {
+        this.loading = false
+        this.data.confirmationMessage = "Sorry, item you selected has been sold out";
+        this.data.openAlert()
+      }
+    })
+  }
   setWaitmessage() {
     this.loading = false
     this.data.confirmationMessage = "redeem success"

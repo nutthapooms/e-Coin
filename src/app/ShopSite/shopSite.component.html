@@ -321,6 +321,7 @@
                                     <button disabled class="em-c-btn em-c-btn_soldout" *ngIf="prize.value.AmountLeft == 0">
                                         <span class="em-c-btn__text">Sold out</span>
                                     </button>
+                                    
                                     <button class="em-c-btn em-c-btn_card" *ngIf="prize.value.AmountLeft > 0" (click)="chooseItem(prize.value.Title,prize.value.Price,prize.value.IsGacha,prize)">
                                         <span class="em-c-btn__text">Redeem</span>
                                     </button>

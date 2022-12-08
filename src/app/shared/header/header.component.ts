@@ -211,26 +211,7 @@ export class HeaderComponent implements OnInit {
         let keys: any[] = [];
         let keys2: any[] = [];
 
-        // ---------------------in Case we need Old data --------------------------------------------
-        this.http.get<any>(this.url + this.listReqURL + "TransactionOld" + "/?$filter=(CreatedBy/WorkEmail eq '" + data1.d.Email + "' and EventOrPrice ne 'create user')", {
-          responseType: 'json'
-          // , withCredentials: true
-        }).subscribe(dataOld => {
-          alert("getting old")
-          for (let key in dataOld.d.results) {
-            let CreateDate = dataOld.d.results[key].Created.replace('/Date(', '')
-            dataOld.d.results[key].Created = new Date(parseInt(CreateDate.replace(')/', ''))).toString()
-            if (dataOld.d.results[key].Operation == 'reduction') {
-              keys.push(dataOld.d.results[key])
-
-            }
-            if (dataOld.d.results[key].Operation == 'earn') {
-              keys2.push(dataOld.d.results[key])
-            }
-          }
-          
-        })
-        // ------------------------------------------------------------------------------------------
+        
         for (let key in data.d.results) {
           let CreateDate = data.d.results[key].Created.replace('/Date(', '')
           data.d.results[key].Created = new Date(parseInt(CreateDate.replace(')/', ''))).toString()
