@@ -1,8 +1,21 @@
-<!-- <div>something today</div> -->
 <div class="slideshow-container ">
+
+<!-- -----counter---- -->
+    <div class="Containers fade">
+        <div id ='countDownBanner' style=" padding-top: 10%; font-size: 50px; text-align: center; width: 100%;height: 90vh; ">
+            <div style="font-size: 50px; text-align: center; background-color: khaki;">
+                {{timeString}}
+            </div>
+            <div style="font-size: 50px; text-align: center;  background-color: khaki">
+                Last chance to spend your EMCoin in 2022!!!
+            </div>
+            
+        </div>
+    </div>
+<!-- -----counter---- -->
+
     <div class="Containers fade">
         <img src={{firstBanner}} style=" width: 100%;height: 90vh;" />
-        <!-- <img src="https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/Picture%20Hub/Banner1.png" style=" width: 100%;height: 78vh;" /> -->
     </div>
     <div class="Containers fade" *ngFor="let banner of Banner">
         <img src={{banner.PictureUrl}} style=" width: 100%; height: 90vh;" />

@@ -40,7 +40,11 @@ export class LandingSiteComponent implements OnInit {
     imageCoinPath = ""
     coinImagePath = ""
     firstBanner = ""
-
+    secondsCumulative = 1
+    newYearDate = new Date('December 30, 2022 23:00:00').getTime()
+    currentDate = new Date().getTime()
+    time = this.newYearDate - this.currentDate
+    timeString = ""
     // CodeName = ""
     // CoinsName = ""
 
@@ -58,6 +62,21 @@ export class LandingSiteComponent implements OnInit {
     // loading: boolean = false
 
     slidePosition = 1;
+    countDown() {
+
+        this.secondsCumulative += 1
+        // console.log(this.secondsCumulative)
+
+
+        // alert(this.newYearDate.getTime()- currentTime.getTime())
+        this.time = this.time - 1000
+        let days = Math.floor(this.time / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((this.time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((this.time % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((this.time % (1000 * 60)) / 1000);
+
+        this.timeString = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+    }
 
     getTabName() {
         this.http.get<any>(this.data.dataUrl + this.listReqURL + "SiteDetails", {
@@ -68,6 +87,8 @@ export class LandingSiteComponent implements OnInit {
             this.coinImagePath = this.data.dataUrl + "Picture%20Hub/" + data.d.results[7].Picture
             this.imageCoinPath = this.data.dataUrl + "Picture%20Hub/" + data.d.results[8].Picture
             this.firstBanner = this.data.dataUrl + "Picture%20Hub/" + data.d.results[9].Picture
+            document.getElementById('countDownBanner')?.style.setProperty('background-image', 'url('+this.data.dataUrl + "Picture%20Hub/" + data.d.results[9].Picture+')')
+
         })
     }
 
@@ -342,9 +363,12 @@ export class LandingSiteComponent implements OnInit {
 
 
     ngOnInit() {
+        this.countDown()
         // this.getFutureBoothDetail()
         this.getBoothDetail()
-
+        setInterval(() => {
+            this.countDown()
+        }, 1000)
         // this.updateCoinCodeName()
         this.getTabName()
         this.getBannerDetail()
