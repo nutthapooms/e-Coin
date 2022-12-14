@@ -12,12 +12,12 @@ import * as CryptoJS from 'crypto-js';
 
 @Injectable()
 export class DataService {
-    public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
-    // public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
+    // public dataUrl = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/'
+    public dataUrl = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/'
 
     // public urlLocation = 'http://localhost:4200';
-    public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
-    // public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
+    // public urlLocation = 'https://ishareteam5.na.xom.com/sites/thvision/emcoin/package/Code/index.html';
+    public urlLocation = 'https://ishareteam4.na.xom.com/sites/THAAreaOps/CusEng/ITFairOnline2/emcoin/package/Code/index.html';
 
   
 
@@ -80,10 +80,8 @@ export class DataService {
 
     ) { }
 
-    // private key = CryptoJS.enc.Utf8.parse('4512631236589784');
     private key = CryptoJS.enc.Utf8.parse('3512631236589784'); //must have 16 digit
     private iv = CryptoJS.enc.Utf8.parse('4512125236589734'); //must have 16 digit
-    // private iv = CryptoJS.enc.Utf8.parse('4512631236589784');
 
     // Methods for the encrypt and decrypt Using AES
     encryptUsingAES256(word: string) {
@@ -114,8 +112,6 @@ export class DataService {
             mode: CryptoJS.mode.CBC,
             padding: CryptoJS.pad.Pkcs7
         });
-        // console.log('Decrypted : ' + decrypted);
-        // console.log('utf8 = ' + decrypted.toString(CryptoJS.enc.Utf8));
         return decrypted.toString(CryptoJS.enc.Utf8).slice(1, -1);
 
 
@@ -167,11 +163,9 @@ export class DataService {
         }).subscribe(data1 => {
             this.http.get<any>(this.url + this.listReqURL + "ContactDetails" + "/?$filter=(Name eq '" + data1.d.DisplayName + "')", {
                 responseType: 'json'
-                // , withCredentials: true
             }).subscribe(data3 => {
                 if (data3.d.results.length > 0) {
                     this.loadingMSG = "Loading"
-                    // this.openAlert()
                     this.confirmationMessage = "This is your first time on this platform. Welcome " + data3.d.results[0].Name + "!";
                     this.loading = false
                     this.reloadPage()
@@ -206,7 +200,6 @@ export class DataService {
         }).subscribe(data1 => {
             this.http.get<any>(this.url + this.listReqURL + "ContactDetails" + "/?$filter=(Name eq '" + data1.d.DisplayName + "')", {
                 responseType: 'json'
-                // , withCredentials: true
             }).subscribe(data => {
                 if (data.d.results.length > 0) {
                     let keys: { value: any; creator2: string; }[] = [];
@@ -247,14 +240,12 @@ export class DataService {
 
                                 setTimeout(() => {
                                     this.checkCreate()
-                                    // this.tooLong +=1
 
                                 }, 500)
 
                             })
                         }
                         else {
-                            // alert("This is your first time on EMCoin. Welcome!")
                         }
                     })
                     return null
@@ -272,7 +263,6 @@ export class DataService {
                 this.loading = false
                 if (UserPromo == 'Yes') {
                     this.confirmationMessage = "earn :" + data.d.Score + this.CoinsName;
-                    // this.confirmationMessage = "First convert promotion. earn :" + data.d.Score + this.CoinsName;
                 }
                 else {
                     this.confirmationMessage = "earn :" + data.d.Score + this.CoinsName;
@@ -305,7 +295,6 @@ export class DataService {
     }
     earn() {
         if (this.userScore[0].value.Role == "Blocked") {
-            // alert("Test")
             this.loading = false
             this.confirmationMessage = "Your account is suspended. Please contact Admin";
             this.openAlert();
@@ -314,8 +303,6 @@ export class DataService {
 
             let UserPromo = this.userScore[0].value.Promo
             let eventCode = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
-            // let eventCode = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value);
-            // this.transactionInfo.EventOrPrice = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value + "" + "2M2Edsin6u8eqlqM");
             this.transactionInfo.EventOrPrice = (<HTMLInputElement>document.getElementById('EventCodeInput')).value
             this.transactionInfo.Operation = "earn"
             this.transactionInfo.Status = "In Progress"
@@ -337,8 +324,6 @@ export class DataService {
     }
     earnQuiz() {
         let UserPromo = this.userScore[0].value.Promo
-        // let eventCode = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value);
-        // this.transactionInfo.EventOrPrice = this.encryptUsingAES256((<HTMLInputElement>document.getElementById('EventCodeInput')).value + "" + "2M2Edsin6u8eqlqM");
         this.transactionInfo.EventOrPrice = "Quiz"
         this.transactionInfo.Operation = "earn"
         this.transactionInfo.Status = "In Progress"
