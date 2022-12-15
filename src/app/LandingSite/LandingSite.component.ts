@@ -45,6 +45,11 @@ export class LandingSiteComponent implements OnInit {
     currentDate = new Date().getTime()
     time = this.newYearDate - this.currentDate
     timeString = ""
+    days = 0
+    hours = 0
+    minutes = 0
+    seconds = 0
+
     // CodeName = ""
     // CoinsName = ""
 
@@ -70,12 +75,12 @@ export class LandingSiteComponent implements OnInit {
 
         // alert(this.newYearDate.getTime()- currentTime.getTime())
         this.time = this.time - 1000
-        let days = Math.floor(this.time / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((this.time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((this.time % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((this.time % (1000 * 60)) / 1000);
+        this.days = Math.floor(this.time / (1000 * 60 * 60 * 24));
+        this.hours = Math.floor((this.time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        this.minutes = Math.floor((this.time % (1000 * 60 * 60)) / (1000 * 60));
+        this.seconds = Math.floor((this.time % (1000 * 60)) / 1000);
 
-        this.timeString = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        this.timeString =this.days + " " + this.hours + " : " + this.minutes + " : " + this.seconds;
     }
 
     getTabName() {
@@ -87,7 +92,10 @@ export class LandingSiteComponent implements OnInit {
             this.coinImagePath = this.data.dataUrl + "Picture%20Hub/" + data.d.results[7].Picture
             this.imageCoinPath = this.data.dataUrl + "Picture%20Hub/" + data.d.results[8].Picture
             this.firstBanner = this.data.dataUrl + "Picture%20Hub/" + data.d.results[9].Picture
-            document.getElementById('countDownBanner')?.style.setProperty('background-image', 'url('+this.data.dataUrl + "Picture%20Hub/" + data.d.results[9].Picture+')')
+            document.getElementById('countDownBanner')?.style.setProperty('background-image', 'url('+this.data.dataUrl + "Picture%20Hub/" + 'emcoin_countdown.png)')
+            document.getElementById('countdownCounter')?.style.setProperty('background-image', 'url('+this.data.dataUrl + "Picture%20Hub/" + 'countdownComponent1.png)')
+
+            
 
         })
     }

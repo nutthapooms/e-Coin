@@ -260,6 +260,8 @@ export class ShopSiteComponent implements OnInit {
         this.loading = false
         this.data.confirmationMessage = "Sorry, item you selected has been sold out";
         this.data.openAlert()
+        this.getPrizeDetail()
+
       }
     })
   }

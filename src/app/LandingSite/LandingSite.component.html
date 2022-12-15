@@ -2,12 +2,27 @@
 
 <!-- -----counter---- -->
     <div class="Containers fade">
-        <div id ='countDownBanner' style=" padding-top: 10%; font-size: 50px; text-align: center; width: 100%;height: 90vh; ">
-            <div style="font-size: 50px; text-align: center; background-color: khaki;">
-                {{timeString}}
+        <div id ='countDownBanner' style=" padding-top: 15vh; font-size: 50px; text-align: center; width: 100%;height: 90vh;background-size: 100% 100%; ">
+            <div style="font-size: 100%; text-align: center; margin:0 auto ;color:rgb(255, 218, 95); font-weight: bolder;">
+                EMCoin Annual will reset in 
             </div>
-            <div style="font-size: 50px; text-align: center;  background-color: khaki">
-                Last chance to spend your EMCoin in 2022!!!
+            <table id ='countdownCounter' style="width: 50%; display: block; margin:0 auto; color: honeydew; background-size: 100% 100%">
+                <tr style="font-size: 10vh; font-weight: bolder; text-align: center;">
+                    <td style="width:30% ;">{{days}}</td>
+                    <td style="width:20%">{{hours}} :</td>
+                    <td style="width:20%">{{minutes}} :</td>
+                    <td style="width:20%">{{seconds}}</td>
+                </tr>
+                <tr style="font-size: 5vh; text-align: center;">
+                    <td>Days </td>
+                    <td> Hours  </td>
+                    <td> Minutes  </td>
+                    <td> Seconds</td>
+                </tr>
+            </table>
+            
+            <div style="font-size: 100%; text-align: center; margin:0 auto ;color: honeydew; padding-top: 5vh;">
+                Spend your EMCoin by Dec. 30th (11.59PM)!
             </div>
             
         </div>
