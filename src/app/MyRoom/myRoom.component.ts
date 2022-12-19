@@ -56,10 +56,17 @@ export class MyRoomComponent implements OnInit {
     let index = 0
     array.reduce((result, currentValue) => {
       this.http.get<any>(this.data.dataUrl + this.listReqURL + "PrizeList" + "/?$filter=(Title eq '" + currentValue[key] + "')").subscribe(data => {
-
         if (existingArr.find(element => element == currentValue[key]) == currentValue[key]) {
           result = currentValue
           finalresult[finalresult.findIndex((item: { [x: string]: any; EventOrPrice: any; }) => item.EventOrPrice === currentValue[key])].Unit += currentValue.Amount
+
+        }
+        else if(data.d.results.length == 0){
+          unitArr[index] = 1
+          result = currentValue
+          finalresult.push({ EventOrPrice: currentValue[key], Unit: currentValue.Amount, isGacha: currentValue[isGacha], PictureUrl: this.url + "Picture%20Hub/" + 'ComingSoon.png' })
+          existingArr.push(currentValue[key])
+          index += 1
 
         }
         else {
@@ -73,7 +80,7 @@ export class MyRoomComponent implements OnInit {
       })
       return result
     }, {});
-
+    
     return finalresult
   };
 
@@ -140,6 +147,7 @@ export class MyRoomComponent implements OnInit {
     // this.data.currentMyTransactionHistoryOld.subscribe(message => this.transactionsHistoryOld = message)
     this.data.currentMyTransaction.subscribe(message => {
       this.transactions = message
+      console.log(message)
     })
     this.data.currentUserScore.subscribe(message => this.userScore = message)
 

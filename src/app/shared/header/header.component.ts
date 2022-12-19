@@ -171,6 +171,7 @@ export class HeaderComponent implements OnInit {
     alert(name)
   }
   groupby(array: any[], key: string) {
+    console.log(array)
     let finalresult: any = []
     let unitArr: any = []
     let existingArr: string[] = []
@@ -223,7 +224,7 @@ export class HeaderComponent implements OnInit {
             keys2.push(data.d.results[key])
           }
         }
-        
+        console.log('test'+keys)
         this.data.changeMyTransactionHistory(keys2);
         let transactionGroupbyItem = this.groupby(keys, 'EventOrPrice')
         this.data.changeMyTransaction(transactionGroupbyItem); //update Transaction
