@@ -89,8 +89,6 @@ export class AppComponent {
   ngOnInit() {
     this.data.getCoinAndCodeName()
     this.getTabName()
-    // this.CheckIn()
-    this.data.getUserScore()
 
   }
 
