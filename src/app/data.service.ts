@@ -165,6 +165,7 @@ export class DataService {
                 responseType: 'json'
             }).subscribe(data3 => {
                 if (data3.d.results.length > 0) {
+                    console.log(data3.d.results)
                     this.loadingMSG = "Loading"
                     this.confirmationMessage = "This is your first time on this platform. Welcome " + data3.d.results[0].Name + "!";
                     this.loading = false
@@ -236,7 +237,7 @@ export class DataService {
                                 , { withCredentials: true }
                             ).subscribe(data2 => {
                                 this.loading = true;
-                                this.loadingMSG = "Initializing account"
+                                this.loadingMSG = "Initializing account."
 
                                 setTimeout(() => {
                                     this.checkCreate()
@@ -246,6 +247,8 @@ export class DataService {
                             })
                         }
                         else {
+                            this.loading = true;
+                                this.loadingMSG = "Please inform core team if you recently change your name or add nickname"
                         }
                     })
                     return null
